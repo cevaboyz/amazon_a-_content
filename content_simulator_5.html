@@ -1557,8 +1557,13 @@
                 exportPngButton.disabled = true; exportPdfButton.disabled = true;
 
                 const pdfType = pdfExportTypeSelect.value;
+                let canvasScale = 2; // Default scale
 
-                html2canvas(previewElement, { scale: 2, useCORS: true, logging: false, scrollY: -window.scrollY, windowWidth: previewElement.scrollWidth, windowHeight: previewElement.scrollHeight })
+                if (format === 'pdf' && pdfType === 'singlepage') {
+                    canvasScale = 1.5; // Use 1.5 for single-page PDF
+                }
+
+                html2canvas(previewElement, { scale: canvasScale, useCORS: true, logging: false, scrollY: -window.scrollY, windowWidth: previewElement.scrollWidth, windowHeight: previewElement.scrollHeight })
                 .then(canvas => {
                     if (format === 'png') {
                         const link = document.createElement('a');
@@ -1585,7 +1590,7 @@
                                 unit: 'mm',
                                 format: [imgWidthMM, scaledCanvasHeightMM] 
                             });
-                            pdf.addImage(imgData, 'PNG', 0, 0, imgWidthMM, scaledCanvasHeightMM);
+                            pdf.addImage(imgData, 'PNG', 0, 0, imgWidthMM, scaledCanvasHeightMM, undefined, 'NONE');
                         } else { 
                             pdf = new jsPDF({
                                 orientation: 'p',
