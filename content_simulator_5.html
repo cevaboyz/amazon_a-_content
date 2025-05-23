@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Simulatore Contenuti Amazon A+ Premium v4.9</title>
+<title>Simulatore Contenuti Amazon A+ Premium v4.8</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" xintegrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" xintegrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -202,4 +202,2246 @@ header{background:#232f3e;color:#fff;padding:1rem;text-align:center}
 }
 
 
-.preview-PREMIUM_FU
+.preview-PREMIUM_FULL_VIDEO .video-container,
+.preview-PREMIUM_VIDEO_TEXT .video-container { border: 2px dashed #ccc; padding: 20px; text-align: center; background: #f9f9f9; margin-bottom: 10px; }
+.preview-PREMIUM_FULL_VIDEO .video-container img,
+.preview-PREMIUM_VIDEO_TEXT .video-container .img-container-fixed-size { border: none; margin-bottom: 10px; }
+.preview-PREMIUM_FULL_VIDEO .video-title,
+.preview-PREMIUM_VIDEO_TEXT .video-title,
+.preview-PREMIUM_FULL_VIDEO .video-description,
+.preview-PREMIUM_VIDEO_TEXT .video-description,
+.preview-PREMIUM_FULL_VIDEO .video-url-info, 
+.preview-PREMIUM_VIDEO_TEXT .video-url-info { 
+    font-weight: normal; 
+    font-size: 0.9em;
+    color: #555;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    margin-bottom: 0.3em;
+}
+.preview-PREMIUM_FULL_VIDEO .video-title,
+.preview-PREMIUM_VIDEO_TEXT .video-title { font-weight: bold; font-size: 1.1em; color: #333; }
+
+
+.preview-PREMIUM_HOTSPOTS_1 .hotspot-image-container,
+.preview-PREMIUM_HOTSPOTS_2 .hotspot-image-container { position: relative; margin-bottom: 10px; line-height: 0; }
+.preview-PREMIUM_HOTSPOTS_1 .hotspot-image-container img,
+.preview-PREMIUM_HOTSPOTS_2 .hotspot-image-container img { display: block; width: 100%; }
+.hotspot-marker { position: absolute; background-color: rgba(228, 121, 17, 0.8); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3); z-index: 10; }
+.hotspot-popup {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.85);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    z-index: 20;
+    width: 220px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+.hotspot-popup h5 { color: #fff; margin-top: 0; margin-bottom: 5px; font-size: 1em; border-bottom: 1px solid #555; padding-bottom: 5px;}
+.hotspot-popup p { color: #f0f0f0; margin-bottom: 0; font-size: 0.9em; }
+.hotspot-mobile-previews { margin-top: 15px; }
+.hotspot-mobile-previews h5 { font-size: 1em; color: #333; margin-bottom: 5px; }
+.hotspot-mobile-preview-item { margin-bottom:10px; border: 1px solid #eee; padding: 5px; }
+.hotspot-mobile-preview-item img { max-width: 80px; margin-right: 10px; }
+
+/* Stili per Premium Q&A */
+.preview-PREMIUM_Q_A .qa-item-wrapper {
+    border: 1px solid #e7e7e7;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+.preview-PREMIUM_Q_A .qa-question-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    border-bottom: 1px solid #e7e7e7;
+}
+.preview-PREMIUM_Q_A .qa-question-header:last-child {
+    border-bottom: none;
+}
+.preview-PREMIUM_Q_A .qa-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 3px;
+    color: white;
+    flex-shrink: 0;
+}
+.preview-PREMIUM_Q_A .qa-label-q { background-color: #4a4a4a; }
+.preview-PREMIUM_Q_A .qa-label-a { background-color: #e47911; }
+
+.preview-PREMIUM_Q_A .qa-question-text {
+    flex-grow: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
+}
+.preview-PREMIUM_Q_A .qa-toggle-arrow {
+    margin-left: 10px;
+    font-size: 1.2em;
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+.preview-PREMIUM_Q_A .qa-toggle-arrow.expanded {
+    transform: rotate(180deg);
+}
+.preview-PREMIUM_Q_A .qa-answer-content {
+    display: none;
+    padding: 15px;
+    background-color: #fff;
+}
+.preview-PREMIUM_Q_A .qa-answer-content .qa-label-a {
+    float: left;
+    margin-bottom: 5px;
+}
+.preview-PREMIUM_Q_A .qa-answer-text {
+    margin-left: 55px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.preview-PREMIUM_Q_A.bg-black { background-color: #111; border-color: #333; }
+.preview-PREMIUM_Q_A.bg-black .qa-question-header { background-color: #2b2b2b; border-bottom-color: #333; }
+.preview-PREMIUM_Q_A.bg-black .qa-question-text { color: #f0f0f0; }
+.preview-PREMIUM_Q_A.bg-black .qa-toggle-arrow { color: #f0f0f0; }
+.preview-PREMIUM_Q_A.bg-black .qa-answer-content { background-color: #1c1c1c; }
+.preview-PREMIUM_Q_A.bg-black .qa-answer-text { color: #e0e0e0; }
+
+
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .content-wrapper { display: flex; gap: 20px; align-items: flex-start; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .image-column { flex: 0 0 50%; max-width: 50%; padding: 5px; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .image-column .img-container-fixed-size { height: 300px; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .text-column { flex: 1; min-width:0; padding: 5px; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT.align-left .content-wrapper { flex-direction: row; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT.align-left .text-column { text-align: left; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT.align-right .content-wrapper { flex-direction: row-reverse; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT.align-right .text-column { text-align: right; }
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .text-column .sub-headline,
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .text-column .headline,
+.preview-PREMIUM_SINGLE_IMAGE_TEXT .text-column .body-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.preview-PREMIUM_TEXT .headline,
+.preview-PREMIUM_TEXT .body-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    text-align: left; 
+}
+
+
+.preview-PREMIUM_VIDEO_TEXT .content-wrapper { display: flex; gap: 20px; align-items: flex-start; }
+.preview-PREMIUM_VIDEO_TEXT .image-column { flex: 0 0 50%; max-width:50%; } 
+.preview-PREMIUM_VIDEO_TEXT .image-column .video-container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.preview-PREMIUM_VIDEO_TEXT .image-column .img-container-fixed-size { height: 300px; width:100%; } 
+
+.preview-PREMIUM_VIDEO_TEXT .text-column { flex: 1; min-width:0; }
+.preview-PREMIUM_VIDEO_TEXT.align-left .content-wrapper { flex-direction: row; }
+.preview-PREMIUM_VIDEO_TEXT.align-left .text-column { text-align: left; }
+.preview-PREMIUM_VIDEO_TEXT.align-right .content-wrapper { flex-direction: row-reverse; }
+.preview-PREMIUM_VIDEO_TEXT.align-right .text-column { text-align: right; }
+.preview-PREMIUM_VIDEO_TEXT .text-column .sub-headline,
+.preview-PREMIUM_VIDEO_TEXT .text-column .headline,
+.preview-PREMIUM_VIDEO_TEXT .text-column .body-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; 
+}
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .specs-table td {
+    border: 1px solid #eee;
+    padding: 8px;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    vertical-align: top; /* Allinea il testo in alto nelle celle */
+}
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .specs-table tr:nth-child(even) td {
+    background-color: #f9f9f9; 
+}
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .spec-label {
+    font-weight: bold;
+    width: 30%; 
+}
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .spec-description {
+    width: 70%; 
+}
+.preview-PREMIUM_TECHNICAL_SPECIFICATIONS .module-headline { 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Stili per Premium Navigation Carousel */
+.preview-PREMIUM_NAVIGATION_CAROUSEL .carousel-panel-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    padding-bottom: 10px;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-nav-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 8px 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    color: #e47911;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-content {
+    position: relative;
+    min-height: 300px;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background-color: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin:0;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay {
+    position: absolute;
+    bottom: 10px;
+    width: calc(100% - 20px);
+    max-width: 45%;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay.overlay-align-left { left: 10px; text-align: left;}
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay.overlay-align-right { right: 10px; text-align: right;}
+
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay h4,
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay h3,
+.preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay p {
+    color: #fff;
+    margin-bottom: 0.4em;
+}
+
+/* Stili per Premium Regimen Carousel */
+.preview-PREMIUM_REGIMEN_CAROUSEL .module-headline {
+    margin-bottom: 15px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-panel-container {
+    position: relative; 
+    height: 350px; 
+    background-color: #e0e0e0; 
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .subsequent-panel-item .regimen-panel-container {
+    height: 320px; 
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-panel-container .panel-nav-text-title { 
+    font-weight: bold;
+    color: #333;
+    padding: 10px 15px;
+    background-color: rgba(240,240,240,0.9);
+    border-bottom: 1px solid #ddd;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3; 
+    box-sizing: border-box;
+}
+
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay {
+    position: absolute;
+    left: 25px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 33%; 
+    max-height: 85%; 
+    background-color: rgba(70, 70, 70, 0.85); 
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 2; 
+    overflow-y: auto; 
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay h4,
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay p {
+    color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay h4 { font-size: 1.1em; margin-bottom: 0.4em;}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay p { font-size: 0.9em; }
+
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-nav-column-overlay {
+    position: absolute;
+    right: 25px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px; 
+    max-height: 85%; 
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 2; 
+    overflow-y: auto; 
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-nav-item {
+    padding: 10px 15px;
+    cursor: default;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 0.9em;
+    word-wrap: break-word;
+    border-radius: 20px;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s;
+}
+.preview-PREMIUM_REGIMEN_CAROUSEL .regimen-nav-item.active {
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+    border-color: #000;
+}
+
+/* Stili per Premium Simple Image Carousel */
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .module-headline {
+    margin-bottom: 15px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-card {
+    position: relative;
+    height: 400px; 
+    background-color: #e0e0e0;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin-bottom: 10px; 
+    border: 1px solid #ddd;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-card-title { 
+    font-weight: bold;
+    color: #333;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%; 
+    max-height: 90%;
+    background-color: rgba(50, 50, 50, 0.8); 
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 2;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column; 
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay h4,
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay p,
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay .simple-carousel-button-link {
+    color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay .simple-carousel-button-link {
+    display: inline-block;
+    background-color: #e47911;
+    padding: 8px 12px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-asin-box {
+    margin-top: auto; 
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    color: #333;
+    font-size: 0.85em;
+    border-radius: 3px;
+    text-align: center;
+    max-width: 150px; 
+    align-self: center; 
+    text-decoration: none;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-asin-box:hover {
+    background-color: #fff;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-indicators {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .indicator-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 4px;
+    border: 1px solid #bbb;
+}
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .indicator-dot.active {
+    background-color: #e47911;
+    border-color: #c86a0e;
+}
+
+/* Stili per Premium Video Image Carousel */
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .module-headline {
+    margin-bottom: 15px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-carousel-card {
+    position: relative;
+    height: 400px;
+    background-color: #f0f0f0; 
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    display: flex; 
+    align-items: stretch; 
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-carousel-card.text-align-left { flex-direction: row; }
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-carousel-card.text-align-right { flex-direction: row-reverse; }
+
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-carousel-card-title {
+    font-weight: bold; color: #333; padding: 10px 15px; background-color: #f0f0f0; border-bottom: 1px solid #ddd;
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-text-overlay {
+    flex-basis: 45%; 
+    padding: 20px;
+    background-color: rgba(50, 50, 50, 0.85);
+    color: #fff;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    z-index: 2; 
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-text-overlay h4,
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-text-overlay h5,
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-text-overlay p {
+    color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area {
+    flex-basis: 55%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0; 
+    position: relative; 
+    background-color: #e9e9e9; 
+    overflow: hidden; 
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area .img-container-fixed-size {
+    width: 100%;
+    height: 100%; 
+    border: none; 
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area .video-info {
+    text-align: center;
+    color: #333;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.8); 
+    width: 100%;
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area .video-info .video-title { font-weight: bold; }
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em; 
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 0 15px rgba(0,0,0,0.5);
+    pointer-events: none; 
+    z-index: 3; 
+}
+
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-indicators {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .indicator-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 4px;
+    border: 1px solid #bbb;
+}
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .indicator-dot.active {
+    background-color: #e47911;
+    border-color: #c86a0e;
+}
+
+
+/* Stili per il pulsante Mostra/Nascondi e contenitore pannelli */
+.toggle-panels-btn {
+    display: block;
+    margin: 15px auto 5px auto;
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.toggle-panels-btn:hover {
+    background-color: #e0e0e0;
+}
+.subsequent-panels-container {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+.subsequent-panels-container .carousel-item .panel-number, 
+.subsequent-panels-container .carousel-panel-wrapper .panel-nav-text, 
+.preview-PREMIUM_REGIMEN_CAROUSEL .subsequent-panels-container .panel-nav-text-title, 
+.preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .subsequent-panels-container .simple-carousel-card-title,
+.preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .subsequent-panels-container .video-image-carousel-card-title {
+    font-weight: bold;
+    color: #333;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+
+.missing-preview { color: #c00; font-style: italic; }
+
+/* Responsive minimale */
+@media(max-width:768px){
+    .container{flex-direction:column}
+    .controls{max-width:100%}
+    .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay { position: relative; max-width: 100%; bottom: auto; left: auto; right: auto; margin-top: -5px; border-radius: 0;}
+    .preview-PREMIUM_DUAL_IMAGES_TEXT .image-block { flex-basis: 100%; }
+    .preview-PREMIUM_FOUR_IMAGES_TEXT .image-block { flex-basis: calc(50% - 7.5px); }
+    .preview-PREMIUM_SINGLE_IMAGE_TEXT .content-wrapper,
+    .preview-PREMIUM_VIDEO_TEXT .content-wrapper { flex-direction: column !important; }
+    .preview-PREMIUM_SINGLE_IMAGE_TEXT.align-right .text-column,
+    .preview-PREMIUM_VIDEO_TEXT.align-right .text-column { text-align: left; }
+    .preview-PREMIUM_NAVIGATION_CAROUSEL .panel-text-overlay { max-width: 80%; }
+    
+    .preview-PREMIUM_REGIMEN_CAROUSEL .regimen-panel-container {
+        flex-direction: column;
+        height: auto; 
+        padding-top: 0;
+    }
+     .preview-PREMIUM_REGIMEN_CAROUSEL .subsequent-panel-item .panel-nav-text-title {
+        margin-bottom: 0;
+        position: static; 
+        width: auto;
+        border-bottom: 1px solid #ddd; 
+        margin-bottom: 10px; 
+    }
+    .preview-PREMIUM_REGIMEN_CAROUSEL .regimen-panel-container .regimen-main-image-background {
+        position: static; 
+        width: 100%;
+        height: 200px; 
+        object-fit: cover;
+        margin-bottom: 10px;
+        display: block; 
+    }
+    .preview-PREMIUM_REGIMEN_CAROUSEL .regimen-text-box-overlay {
+        position: static; 
+        transform: none;
+        width: 100%;
+        max-height: none;
+        background-color: #6c757d; 
+        margin-bottom:10px; 
+        border-radius: 5px;
+        padding: 15px;
+        z-index: auto;
+    }
+    .preview-PREMIUM_REGIMEN_CAROUSEL .regimen-nav-column-overlay {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-height: none; 
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+        margin-top: 10px;
+        flex-direction: row; 
+        flex-wrap: wrap;
+        justify-content: center;
+        border-left: none;
+        padding-left: 0;
+        overflow-y: visible; 
+        z-index: auto;
+    }
+     .preview-PREMIUM_REGIMEN_CAROUSEL .regimen-nav-item {
+        flex: 0 1 auto;
+        margin: 3px;
+    }
+    .preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-text-overlay {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px; 
+    }
+    .preview-PREMIUM_SIMPLE_IMAGE_CAROUSEL .simple-carousel-card {
+        height: auto; 
+        padding-bottom: 10px; 
+    }
+    .preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-carousel-card {
+        flex-direction: column !important; /* Forza colonna su mobile */
+        height: auto;
+    }
+    .preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-text-overlay {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0;
+        order: 2; /* Testo sotto media su mobile */
+        flex-basis: auto; /* Reset flex-basis */
+    }
+    .preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area {
+        width: 100%;
+        order: 1; /* Media sopra testo su mobile */
+        height: 250px; /* Altezza fissa per media area su mobile */
+        flex-basis: auto; /* Reset flex-basis */
+    }
+    .preview-PREMIUM_VIDEO_IMAGE_CAROUSEL .video-image-media-area .img-container-fixed-size {
+        height: 100%; 
+    }
+}
+
+@media(max-width:480px){
+    .preview-PREMIUM_FOUR_IMAGES_TEXT .image-block { flex-basis: 100%;}
+}
+</style>
+</head>
+
+<body>
+<header><h1>Simulatore Contenuti Amazon A+ Premium v4.7</h1></header>
+
+<div class="container">
+<aside class="controls">
+  <h2>Controlli</h2>
+
+  <section class="general-settings">
+    <h3>Impostazioni Generali</h3>
+    <div class="general-settings-item">
+      <label for="max-selected-modules-input">Max moduli selezionabili:</label>
+      <input type="number" id="max-selected-modules-input" value="7" min="1" max="20">
+    </div>
+  </section>
+
+  <section class="module-selection">
+    <div class="module-selection-header">
+      <h3>1. Seleziona moduli</h3><span id="selected-modules-count">Selezionati: 0</span>
+    </div>
+    <div id="module-list"><p>Caricamento moduli…</p></div>
+  </section>
+
+  <section class="hotspot-settings">
+    <h3>Impostazioni Hotspot</h3>
+    <div>
+      <label for="hotspot-marker-size">Dimensione marker (px):</label>
+      <input type="number" id="hotspot-marker-size" value="25" min="10" max="50">
+    </div>
+  </section>
+
+  <section class="module-inputs">
+    <h3>2. Inserisci contenuti</h3>
+    <div id="selected-modules-inputs"><p>Nessun modulo selezionato.</p></div>
+  </section>
+
+  <section class="export-options">
+    <h3>3. Esporta anteprima</h3>
+    <div class="export-pdf-settings">
+      <label for="pdf-export-type">Tipo PDF:</label>
+      <select id="pdf-export-type">
+        <option value="multipage" selected>Multi-pagina (A4)</option>
+        <option value="singlepage">Pagina unica lunga</option>
+      </select>
+    </div>
+    <div class="export-buttons-group">
+      <button id="export-png-button">Esporta PNG</button>
+      <button id="export-pdf-button">Esporta PDF</button>
+    </div>
+    <div id="alert-message-box" style="display:none; margin-top: 10px; padding: 10px; border-radius: 5px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;"></div>
+
+  </section>
+</aside>
+
+<main class="preview-area">
+  <h2>Anteprima Live</h2>
+  <div class="preview-controls">
+    <button id="desktop-view-btn" title="Visualizzazione Desktop">
+        <svg viewBox="0 0 24 24"><path d="M21 16H3V4h18v12zm-2-2V6H5v8h14zm2 5H3c-.55 0-1-.45-1-1s.45-1 1-1h18c.55 0 1 .45 1 1s-.45 1-1 1zM6 18h12v-1H6v1z"/></svg>
+        Desktop
+    </button>
+    <button id="mobile-view-btn" title="Visualizzazione Mobile (Non attivo)" disabled>
+        <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        Mobile
+    </button>
+  </div>
+  <div id="preview-container"><p>L’anteprima apparirà qui.</p></div>
+</main>
+</div>
+
+<footer><p>Creato da <a href="https://andreacastagna.info/" target="_blank" rel="noopener">Andrea Castagna + Gemini</a></p></footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+/* ------------------------------------------------------
+    1.  DEFINIZIONE MODULI
+------------------------------------------------------ */
+const hardcodedModules=[
+    /*** Premium Background Image with Text ***/
+    {
+        id:'PREMIUM_BACKGROUND_IMAGE_TEXT',
+        name:'Premium Background Image with Text',
+        text:[
+            {id:'sub', label:'Sub-headline', max:40},
+            {id:'head',label:'Headline',max:60},
+            {id:'body',label:'Body text',max:300}
+        ],
+        images:[
+            {id:'desk',label:'Immagine desktop 1464x600',w:1464,h:600,alt:100},
+        ],
+        extra:{align:['left','right'],bg:['white','black']}
+    },
+    /*** Premium Dual Images with Text ***/
+    {
+        id:'PREMIUM_DUAL_IMAGES_TEXT',
+        name:'Premium Dual Images with Text',
+        text:[
+            {id:'head',label:'Headline Modulo',max:50},
+            {id:'head1',label:'Headline immagine 1',max:50},
+            {id:'body1',label:'Body immagine 1',max:300},
+            {id:'head2',label:'Headline immagine 2',max:50},
+            {id:'body2',label:'Body immagine 2',max:300}
+        ],
+        images:[
+            {id:'img1',label:'Immagine 1 (cons. 650x350)',w:650,h:350,alt:100},
+            {id:'img2',label:'Immagine 2 (cons. 650x350)',w:650,h:350,alt:100}
+        ]
+    },
+    /*** Premium Four Images & Text ***/
+    {
+        id:'PREMIUM_FOUR_IMAGES_TEXT',
+        name:'Premium Four Images & Text',
+        text:[
+            {id:'head',label:'Headline Modulo',max:80},
+            ...[1,2,3,4].flatMap(i=>[
+                {id:`h${i}`,label:`Headline Immagine ${i}`,max:30},
+                {id:`b${i}`,label:`Body Immagine ${i}`,max:100}
+            ])
+        ],
+        images:[1,2,3,4].map(i=>({id:`img${i}`,label:`Immagine ${i} (cons. 300x225)`,w:300,h:225,alt:100}))
+    },
+    /*** Premium Full Image ***/
+    {
+        id:'PREMIUM_FULL_IMAGE',
+        name:'Premium Full Image',
+        text:[
+            {id:'head',label:'Headline',max:80},
+            {id:'body',label:'Body text',max:300}
+        ],
+        images:[
+            {id:'desk',label:'Immagine desktop 1464x600',w:1464,h:600,alt:100},
+        ]
+    },
+    /*** Premium Full Video ***/
+    {
+        id:'PREMIUM_FULL_VIDEO',
+        name:'Premium Full Video',
+        text:[
+            {id:'head',label:'Headline Modulo',max:80},
+            {id:'vidTitle',label:'Video title',max:50},
+            {id:'vidDesc',label:'Video description',max:200},
+            {id:'body',label:'Body text (opzionale)',max:300},
+            {id:'video',label:'URL Video MP4/Embed (non riprodotto)',max:1000}
+        ],
+        images:[{id:'thumb',label:'Thumbnail video 1464x600',w:1464,h:600,alt:100}]
+    },
+    /*** Premium Hotspots 1 ***/
+    {
+        id:'PREMIUM_HOTSPOTS_1',
+        name:'Premium Hotspots 1',
+        text:[
+            ...[1,2,3,4,5,6].flatMap(i=>[
+                {id:`h${i}`,label:`Hotspot ${i} headline`,max:50},
+                {id:`b${i}`,label:`Hotspot ${i} body`,max:200}
+            ])
+        ],
+        images:[
+            {id:'desk',label:'Immagine desktop 1464x600',w:1464,h:600,alt:100},
+            ...[1,2,3,4,5,6].map(i=>({id:`mob${i}`,label:`Immagine mobile hotspot ${i} (600x450)`,w:600,h:450,alt:100}))
+        ],
+        extra:{maxHot:6}
+    },
+    /*** Premium Hotspots 2 ***/
+    {
+        id:'PREMIUM_HOTSPOTS_2',
+        name:'Premium Hotspots 2',
+        text:[
+            {id:'head',label:'Headline Modulo',max:80},
+            {id:'body',label:'Body text Modulo',max:300},
+            ...[1,2,3,4,5,6].map(i=>({id:`h${i}`,label:`Hotspot ${i} headline`,max:50}))
+        ],
+        images:[
+            {id:'desk',label:'Immagine desktop 1464x600',w:1464,h:600,alt:100},
+            ...[1,2,3,4,5,6].map(i=>({id:`mob${i}`,label:`Immagine mobile hotspot ${i} (600x450)`,w:600,h:450,alt:100}))
+        ],
+        extra:{maxHot:6}
+    },
+    /*** Premium Navigation Carousel ***/
+    {
+        id:'PREMIUM_NAVIGATION_CAROUSEL',
+        name:'Premium Navigation Carousel',
+        text:[
+            ...[1,2,3,4,5].flatMap(i=>[
+                {id:`nav${i}`,label:`Pannello ${i} Navigation text`,max:25},
+                {id:`sub${i}`,label:`Pannello ${i} Sub-headline`,max:25},
+                {id:`head${i}`,label:`Pannello ${i} Headline`,max:50},
+                {id:`body${i}`,label:`Pannello ${i} Body`,max:100}
+            ])
+        ],
+        images:[...Array(5).keys()].flatMap(i=>[
+            {id:`desk${i+1}`,label:`Pannello ${i+1} desktop 1464x600`,w:1464,h:600,alt:100},
+        ]),
+        extra: {textOverlayAlign:['left','right']}
+    },
+    /*** Premium Q&A ***/
+    {
+        id:'PREMIUM_Q_A',
+        name:'Premium Q&A',
+        text:[...[1,2,3,4,5].flatMap(i=>[
+            {id:`q${i}`,label:`Domanda ${i}`,max:120},
+            {id:`a${i}`,label:`Risposta ${i}`,max:250}
+        ])],
+        images:[],
+        extra:{bg:['white','black']}
+    },
+    /*** Premium Regimen Carousel ***/
+    {
+        id:'PREMIUM_REGIMEN_CAROUSEL',
+        name:'Premium Regimen Carousel',
+        text:[
+            {id:'head',label:'Headline modulo',max:100},
+            ...[1,2,3,4,5].flatMap(i=>[
+                {id:`h${i}`,label:`Pannello ${i} headline`,max:20},
+                {id:`b${i}`,label:`Pannello ${i} body`,max:100},
+                {id:`nav${i}`,label:`Pannello ${i} navigation text`,max:20}
+            ])
+        ],
+        images:[...Array(5).keys()].flatMap(i=>[
+            {id:`desk${i+1}`,label:`Pannello ${i+1} desktop 1464x600`,w:1464,h:600,alt:100},
+        ])
+    },
+    /*** Premium Simple Image Carousel ***/
+    {
+        id:'PREMIUM_SIMPLE_IMAGE_CAROUSEL',
+        name:'Premium Simple Image Carousel',
+        text:[
+            {id:'head',label:'Headline carousel',max:80},
+            ...[1,2,3,4,5,6].flatMap(i=>[
+                {id:`h${i}`,label:`Pannello ${i} headline`,max:50},
+                {id:`b${i}`,label:`Pannello ${i} body`,max:200},
+                {id:`btn${i}`,label:`Pannello ${i} button text`,max:12},
+                {id:`asin${i}`,label:`Pannello ${i} ASIN`,max:10},
+                {id:`showBtn${i}`, label:`Mostra Bottone Pannello ${i}`, type: 'checkbox', default: false}
+            ])
+        ],
+        images:[...Array(6).keys()].flatMap(i=>[
+            {id:`desk${i+1}`,label:`Pannello ${i+1} desktop 1464x600`,w:1464,h:600,alt:100},
+        ])
+    },
+    /*** Premium Single Image with Text ***/
+    {
+        id:'PREMIUM_SINGLE_IMAGE_TEXT',
+        name:'Premium Single Image with Text',
+        text:[
+            {id:'sub',label:'Sub-headline',max:40},
+            {id:'head',label:'Headline',max:80},
+            {id:'body',label:'Body text',max:500}
+        ],
+        images:[{id:'img',label:'Immagine (cons. 800x600)',w:800,h:600,alt:100}],
+        extra:{align:['left','right']}
+    },
+    /*** Premium Text ***/
+    {
+        id:'PREMIUM_TEXT',
+        name:'Premium Text',
+        text:[
+            {id:'head',label:'Headline',max:80},
+            {id:'body',label:'Body text',max:5000}
+        ],
+        images:[]
+    },
+    /*** Premium Video Image Carousel ***/
+    {
+        id: 'PREMIUM_VIDEO_IMAGE_CAROUSEL',
+        name: 'Premium Video Image Carousel',
+        text: [ 
+            { id: 'head', label: 'Headline modulo', max: 80 },
+        ],
+        panelCount: 6, 
+        panelSchema: { 
+            textFields: [
+                { idTemplate: 'itemHeadlinePANEL_INDEX', labelTemplate: 'Headline Overlay Pannello PANEL_INDEX', max: 50 },
+                { idTemplate: 'itemSubHeadlinePANEL_INDEX', labelTemplate: 'Sub-Headline Overlay Pannello PANEL_INDEX', max: 80 },
+                { idTemplate: 'itemBodyPANEL_INDEX', labelTemplate: 'Body Overlay Pannello PANEL_INDEX', max: 500 },
+                { idTemplate: 'videoTitlePANEL_INDEX', labelTemplate: 'Titolo Video Pannello PANEL_INDEX', max: 50, fieldType: 'videoOnly' },
+                { idTemplate: 'videoDescriptionPANEL_INDEX', labelTemplate: 'Descrizione Video Pannello PANEL_INDEX', max: 200, fieldType: 'videoOnly' },
+                { idTemplate: 'videoUrlPANEL_INDEX', labelTemplate: 'URL Video Pannello PANEL_INDEX (MP4/Embed)', max: 1000, fieldType: 'videoOnly' },
+            ],
+            imageFields: [ 
+                { idTemplate: `mediaPANEL_INDEX`, labelTemplate: `Media Pannello PANEL_INDEX`, w: 800, h: 600, alt: 100 }
+            ],
+            controlFields: [
+                { idTemplate: 'panelTypePANEL_INDEX', labelTemplate: 'Tipo Contenuto Pannello PANEL_INDEX', type: 'select', options: ['immagine', 'video'], default: 'immagine' },
+                { idTemplate: 'textAlignmentPANEL_INDEX', labelTemplate: 'Allineamento Testo Pannello PANEL_INDEX', type: 'select', options: ['sinistra', 'destra'], default: 'sinistra' }
+            ]
+        }
+    },
+    /*** Premium Video with Text ***/
+    {
+        id:'PREMIUM_VIDEO_TEXT',
+        name:'Premium Video with Text',
+        text:[
+            {id:'sub',label:'Sub-headline',max:40},
+            {id:'head',label:'Headline',max:80},
+            {id:'body',label:'Body text',max:500},
+            {id:'vTitle',label:'Video title',max:50, fieldType: 'videoInfo'},
+            {id:'vDesc',label:'Video description',max:200, fieldType: 'videoInfo'},
+            {id:'video',label:'URL MP4/Embed',max:1000, fieldType: 'videoInfo'},
+            {id:'showVideoTitle', label:'Mostra Titolo Video', type: 'checkbox', default: true},
+            {id:'showVideoDesc', label:'Mostra Descrizione Video', type: 'checkbox', default: true},
+            {id:'showVideoUrl', label:'Mostra URL Video', type: 'checkbox', default: true}
+        ],
+        images:[
+            {id:'thumb',label:'Immagine anteprima video (cons. 800x600)',w:800,h:600,alt:100}
+        ],
+        extra:{align:['left','right']}
+    },
+    /*** Premium Technical Specifications ***/
+    {
+        id:'PREMIUM_TECHNICAL_SPECIFICATIONS',
+        name:'Premium Technical Specifications',
+        text:[
+            {id:'head',label:'Headline Modulo',max:80},
+            ...Array.from({length: 16}, (_, i) => i + 1).flatMap(i=>[
+                {id:`l${i}`,label:`Spec ${i} label`,max:50},
+                {id:`d${i}`,label:`Spec ${i} description`,max:500}
+            ])
+        ],
+        images:[]
+    }
+];
+
+/* ------------------------------------------------------
+    2. STATE
+------------------------------------------------------ */
+const selModules=[]
+let nextId=0
+const currentMax=()=>parseInt(maxModulesInput.value,10)||7;
+const hotspotMarkerCurrentSize = () => parseInt(hotspotMarkerSizeInput.value, 10) || 25;
+const alertBox = document.getElementById('alert-message-box');
+
+/* ------------------------------------------------------
+    3. DOM
+------------------------------------------------------ */
+const listDiv=document.getElementById('module-list')
+const inputsDiv=document.getElementById('selected-modules-inputs')
+const preview=document.getElementById('preview-container')
+const selCount=document.getElementById('selected-modules-count')
+const maxModulesInput=document.getElementById('max-selected-modules-input')
+const hotspotMarkerSizeInput = document.getElementById('hotspot-marker-size');
+const btnPNG=document.getElementById('export-png-button')
+const btnPDF=document.getElementById('export-pdf-button')
+const pdfType=document.getElementById('pdf-export-type')
+
+/* ------------------------------------------------------
+    4. UTILITY
+------------------------------------------------------ */
+const el=(t,cls)=>{const e=document.createElement(t);if(cls)e.className=cls;return e}
+const updateCounter=()=>{selCount.textContent=`Selezionati: ${selModules.length} / ${currentMax()}`}
+const byId=id=>hardcodedModules.find(m=>m.id===id)
+const charCount=(inEl,max,counter)=>{
+    counter.textContent=`${inEl.value.length}/${max}`
+    counter.classList.toggle('over-limit',inEl.value.length>max)
+}
+function showMessage(message, type = 'error') {
+    alertBox.textContent = message;
+    alertBox.style.backgroundColor = type === 'error' ? '#f8d7da' : '#d4edda';
+    alertBox.style.color = type === 'error' ? '#721c24' : '#155724';
+    alertBox.style.borderColor = type === 'error' ? '#f5c6cb' : '#c3e6cb';
+    alertBox.style.display = 'block';
+    setTimeout(() => { alertBox.style.display = 'none'; }, 3000);
+}
+
+/* ------------------------------------------------------
+    5. RENDER LISTA MODULI
+------------------------------------------------------ */
+function renderModuleList(){
+    listDiv.innerHTML=''
+    hardcodedModules.forEach(m=>{
+        const b=el('button')
+        b.textContent=m.name
+        b.dataset.id=m.id
+        b.onclick=()=>addModule(m.id)
+        listDiv.appendChild(b)
+    })
+}
+renderModuleList()
+
+/* ------------------------------------------------------
+    6. AGGIUNTA / RIMOZIONE MODULI
+------------------------------------------------------ */
+function addModule(id){
+    if(selModules.length>=currentMax()){showMessage('Limite moduli raggiunto');return}
+    const inst={uid:nextId++,type:id,data:{}}
+    const moduleDef = byId(id);
+    if (moduleDef && moduleDef.extra) {
+        for (const key in moduleDef.extra) {
+            if (Array.isArray(moduleDef.extra[key]) && moduleDef.extra[key].length > 0) {
+                inst.data[key] = moduleDef.extra[key][0];
+            }
+        }
+    }
+    if (id === 'PREMIUM_SIMPLE_IMAGE_CAROUSEL') {
+        for (let i = 1; i <= 6; i++) {
+            inst.data[`showBtn${i}`] = false; 
+        }
+    }
+    if (id === 'PREMIUM_VIDEO_IMAGE_CAROUSEL' && moduleDef.panelSchema) {
+        for (let i = 1; i <= moduleDef.panelCount; i++) {
+            moduleDef.panelSchema.controlFields.forEach(cfDef => {
+                const fieldId = cfDef.idTemplate.replace('PANEL_INDEX', i);
+                inst.data[fieldId] = cfDef.default;
+            });
+        }
+    }
+    if (id === 'PREMIUM_VIDEO_TEXT') { 
+        inst.data['showVideoTitle'] = true;
+        inst.data['showVideoDesc'] = true;
+        inst.data['showVideoUrl'] = true;
+    }
+    selModules.push(inst)
+    renderInputs()
+}
+function removeModule(uid){
+    const ix=selModules.findIndex(m=>m.uid===uid)
+    if(ix>-1){selModules.splice(ix,1);renderInputs()}
+}
+
+/* ------------------------------------------------------
+    7. RENDER INPUTS
+------------------------------------------------------ */
+function renderInputs(){
+    inputsDiv.innerHTML=''
+    if(!selModules.length){inputsDiv.innerHTML='<p>Nessun modulo selezionato.</p>';preview.innerHTML='<p>L’anteprima apparirà qui.</p>';updateCounter();return}
+    
+    selModules.forEach((inst, moduleIndex) =>{ // Aggiunto moduleIndex
+        const def=byId(inst.type)
+        const wrap=el('div','module-input-group');wrap.dataset.uid=inst.uid
+        wrap.id = `module-input-group-${inst.uid}`; // ID univoco per l'evidenziazione
+
+        // Applica l'evidenziazione se è l'ultimo modulo
+        if (moduleIndex === selModules.length - 1) {
+            wrap.classList.add('selected-module-input-group');
+        }
+
+
+        const h4=el('h4');h4.textContent=def.name
+        const rm=el('button','remove-module-btn');rm.textContent='Rimuovi';rm.onclick=()=>removeModule(inst.uid)
+        h4.appendChild(rm);wrap.appendChild(h4)
+
+        // Renderizza i campi di testo generali del modulo
+        if (def.text) {
+            def.text.forEach(f => {
+                if (f.type === 'checkbox') { 
+                    const fieldset = el('fieldset');
+                    fieldset.style.border = 'none'; fieldset.style.padding = '0.5em 0';
+                    const labCheck = el('label'); labCheck.htmlFor = `input-${inst.uid}-${f.id}`;
+                    const check = el('input'); check.type = 'checkbox'; check.id = `input-${inst.uid}-${f.id}`;
+                    check.checked = inst.data[f.id] === undefined ? f.default : inst.data[f.id];
+                    check.onchange = () => { inst.data[f.id] = check.checked; renderPreview(); };
+                    labCheck.appendChild(check); labCheck.appendChild(document.createTextNode(` ${f.label}`));
+                    fieldset.appendChild(labCheck); wrap.appendChild(fieldset);
+                } else if (!f.panelDetail) { 
+                    const lab=el('label');lab.htmlFor = `input-${inst.uid}-${f.id}`; lab.textContent=`${f.label} (max ${f.max})`;
+                    const inpType=f.max>150?'textarea':'input';const inEl=el(inpType); if(inpType==='input')inEl.type='text';
+                    inEl.id = `input-${inst.uid}-${f.id}`;
+                    inEl.value=inst.data[f.id]||'';
+                    inEl.maxLength = f.max;
+                    inEl.oninput=()=>{inst.data[f.id]=inEl.value;charCount(inEl,f.max,cnt);renderPreview()};
+                    const cnt=el('div','char-counter');charCount(inEl,f.max,cnt);
+                    wrap.append(lab,inEl,cnt);
+                }
+            });
+        }
+
+        // Logica per moduli con panelSchema (PREMIUM_VIDEO_IMAGE_CAROUSEL)
+        if (def.panelSchema && def.panelCount) {
+            for (let i = 1; i <= def.panelCount; i++) {
+                const panelGroup = el('div', 'module-input-group');
+                panelGroup.style.borderLeft = "3px solid #e47911";
+                panelGroup.style.paddingLeft = "10px";
+                const panelH5 = el('h5'); panelH5.textContent = `Pannello ${i}`;
+                panelGroup.appendChild(panelH5);
+
+                const videoFieldsContainer = el('div'); 
+                videoFieldsContainer.className = `video-fields-for-panel${i}`; 
+                const imageFieldsContainer = el('div'); 
+
+                // Funzione per aggiornare etichette e visibilità, specifica per questo panelGroup
+                const updateMediaLabelAndFieldsVisibility = (panelIdx, currentPanelGroup) => {
+                    const panelTypeSelect = currentPanelGroup.querySelector(`#input-${inst.uid}-panelType${panelIdx}`);
+                    const currentPanelType = panelTypeSelect ? panelTypeSelect.value : def.panelSchema.controlFields.find(f=>f.idTemplate === 'panelTypePANEL_INDEX').default;
+                    const isVideo = currentPanelType === 'video';
+                    
+                    const currentMediaLab = currentPanelGroup.querySelector(`label[for='media-input-${inst.uid}-${panelIdx}']`);
+                    const currentMediaAltLab = currentPanelGroup.querySelector(`label[for='media-alt-input-${inst.uid}-${panelIdx}']`);
+                    const imgFieldDef = def.panelSchema.imageFields[0]; 
+
+                    if (currentMediaLab) currentMediaLab.textContent = isVideo ? `Thumbnail Video Pannello ${panelIdx} (cons. ${imgFieldDef.w}x${imgFieldDef.h}px)*` : `Immagine Pannello ${panelIdx} (cons. ${imgFieldDef.w}x${imgFieldDef.h}px)*`;
+                    if (currentMediaAltLab) currentMediaAltLab.textContent = `Alt text ${isVideo ? 'Thumbnail' : 'Immagine'} (max ${imgFieldDef.alt})`;
+
+                    const currentVideoFieldsContainer = currentPanelGroup.querySelector('.video-fields-for-panel' + panelIdx);
+                    if (currentVideoFieldsContainer) currentVideoFieldsContainer.style.display = isVideo ? 'block' : 'none';
+                };
+
+
+                // Selettori di controllo per il pannello
+                def.panelSchema.controlFields.forEach(cfDef => {
+                    const fieldId = cfDef.idTemplate.replace('PANEL_INDEX', i);
+                    const fieldLabel = cfDef.labelTemplate.replace('PANEL_INDEX', i);
+                    const lab = el('label'); lab.htmlFor = `input-${inst.uid}-${fieldId}`; lab.textContent = fieldLabel;
+                    const selElement = el('select'); selElement.id = `input-${inst.uid}-${fieldId}`;
+                    cfDef.options.forEach(opt => {
+                        const optionEl = el('option'); optionEl.value = opt; optionEl.textContent = opt.charAt(0).toUpperCase() + opt.slice(1);
+                        selElement.appendChild(optionEl);
+                    });
+                    selElement.value = inst.data[fieldId] || cfDef.default;
+                    selElement.onchange = () => {
+                        inst.data[fieldId] = selElement.value;
+                        if (cfDef.idTemplate === 'panelTypePANEL_INDEX') {
+                            updateMediaLabelAndFieldsVisibility(i, panelGroup); 
+                        }
+                        renderPreview();
+                    };
+                    panelGroup.append(lab, selElement);
+                });
+                
+                // Area Upload Media
+                const imgFieldDef = def.panelSchema.imageFields[0];
+                const mediaFieldId = imgFieldDef.idTemplate.replace('PANEL_INDEX', i);
+                const mediaArea = el('div','image-upload-area');
+                const mediaLab = el('label'); mediaLab.htmlFor = `media-input-${inst.uid}-${i}`; 
+                const mediaFi = el('input'); mediaFi.type='file'; mediaFi.accept='image/*'; 
+                mediaFi.id = `media-input-${inst.uid}-${i}`;
+                const mediaPrev = el('img','image-preview');
+                const mediaAltLab = el('label'); mediaAltLab.htmlFor = `media-alt-input-${inst.uid}-${i}`; 
+                const mediaAlt = el('input'); mediaAlt.type='text'; mediaAlt.placeholder='Alt text...'; mediaAlt.id=`media-alt-input-${inst.uid}-${i}`;
+                mediaAlt.maxLength = imgFieldDef.alt;
+                
+                if(inst.data[mediaFieldId]?.src) { mediaPrev.src=inst.data[mediaFieldId].src; mediaPrev.style.display='block';} 
+                else {mediaPrev.style.display='none';}
+                mediaAlt.value=inst.data[mediaFieldId]?.alt||'';
+
+                mediaFi.onchange= e => {
+                    const file=e.target.files[0];
+                    if(file&&file.type.startsWith('image/')){
+                        const r=new FileReader();
+                        r.onload=ev=>{
+                            inst.data[mediaFieldId]={src:ev.target.result,alt:inst.data[mediaFieldId]?.alt||''};
+                            mediaPrev.src=ev.target.result;mediaPrev.style.display='block';
+                            renderPreview();
+                        };
+                        r.readAsDataURL(file);
+                    } else {
+                        if(inst.data[mediaFieldId]) delete inst.data[mediaFieldId].src;
+                        mediaPrev.src=''; mediaPrev.style.display='none';
+                        renderPreview();
+                    }
+                };
+                mediaAlt.oninput=()=>{
+                    if(!inst.data[mediaFieldId]) inst.data[mediaFieldId]={src:mediaPrev.src||null,alt:''};
+                    inst.data[mediaFieldId].alt=mediaAlt.value;
+                    renderPreview();
+                };
+                mediaArea.append(mediaLab,mediaFi,mediaPrev,mediaAltLab,mediaAlt);
+                imageFieldsContainer.appendChild(mediaArea); 
+                panelGroup.appendChild(imageFieldsContainer);
+
+                // Campi Testo Overlay (sempre visibili)
+                def.panelSchema.textFields.filter(f => f.fieldType !== 'videoOnly').forEach(fDef => {
+                    const fieldId = fDef.idTemplate.replace('PANEL_INDEX', i);
+                    const fieldLabel = fDef.labelTemplate.replace('PANEL_INDEX', i);
+                    const lab=el('label');lab.htmlFor = `input-${inst.uid}-${fieldId}`; lab.textContent=`${fieldLabel} (max ${fDef.max})`;
+                    const inpType=fDef.max>150?'textarea':'input';const inEl=el(inpType); if(inpType==='input')inEl.type='text';
+                    inEl.id = `input-${inst.uid}-${fieldId}`; inEl.value=inst.data[fieldId]||''; inEl.maxLength = fDef.max;
+                    inEl.oninput=()=>{inst.data[fieldId]=inEl.value;charCount(inEl,fDef.max,cnt);renderPreview()};
+                    const cnt=el('div','char-counter');charCount(inEl,fDef.max,cnt);
+                    panelGroup.append(lab,inEl,cnt);
+                });
+                
+                // Campi specifici per video (visibilità condizionale)
+                def.panelSchema.textFields.filter(f => f.fieldType === 'videoOnly').forEach(fDef => {
+                    const fieldId = fDef.idTemplate.replace('PANEL_INDEX', i);
+                    const fieldLabel = fDef.labelTemplate.replace('PANEL_INDEX', i);
+                    const lab=el('label');lab.htmlFor = `input-${inst.uid}-${fieldId}`; lab.textContent=`${fieldLabel} (max ${fDef.max})`;
+                    const inpType=fDef.max>150?'textarea':'input';const inEl=el(inpType); if(inpType==='input')inEl.type='text';
+                    inEl.id = `input-${inst.uid}-${fieldId}`; inEl.value=inst.data[fieldId]||''; inEl.maxLength = fDef.max;
+                    inEl.oninput=()=>{inst.data[fieldId]=inEl.value;charCount(inEl,fDef.max,cnt);renderPreview()};
+                    const cnt=el('div','char-counter');charCount(inEl,fDef.max,cnt);
+                    
+                    const fieldContainer = el('div'); 
+                    fieldContainer.append(lab,inEl,cnt);
+                    videoFieldsContainer.appendChild(fieldContainer);
+                });
+                panelGroup.appendChild(videoFieldsContainer);
+                
+                updateMediaLabelAndFieldsVisibility(i, panelGroup); 
+                wrap.appendChild(panelGroup);
+            }
+        } else if (def.id === 'PREMIUM_SIMPLE_IMAGE_CAROUSEL') {
+            for (let i = 1; i <= def.images.length; i++) {
+                const panelGroup = el('div', 'module-input-group');
+                panelGroup.style.borderLeft = "3px solid #007bff"; panelGroup.style.paddingLeft = "10px";
+                const panelH5 = el('h5'); panelH5.textContent = `Pannello ${i}`;
+                panelGroup.appendChild(panelH5);
+
+                def.text.filter(f => f.id.endsWith(String(i))).forEach(f => {
+                     if (f.type === 'checkbox') {
+                        const fieldset = el('fieldset'); fieldset.style.border = 'none'; fieldset.style.padding = '0.5em 0';
+                        const labCheck = el('label'); labCheck.htmlFor = `input-${inst.uid}-${f.id}`;
+                        const check = el('input'); check.type = 'checkbox'; check.id = `input-${inst.uid}-${f.id}`;
+                        check.checked = inst.data[f.id] === undefined ? f.default : inst.data[f.id];
+                        check.onchange = () => { inst.data[f.id] = check.checked; renderPreview(); };
+                        labCheck.appendChild(check); labCheck.appendChild(document.createTextNode(` ${f.label}`));
+                        fieldset.appendChild(labCheck); panelGroup.appendChild(fieldset);
+                    } else {
+                        const lab=el('label');lab.htmlFor = `input-${inst.uid}-${f.id}`; lab.textContent=`${f.label} (max ${f.max})`;
+                        const inpType=f.max>150?'textarea':'input';const inEl=el(inpType); if(inpType==='input')inEl.type='text';
+                        inEl.id = `input-${inst.uid}-${f.id}`; inEl.value=inst.data[f.id]||''; inEl.maxLength = f.max;
+                        inEl.oninput=()=>{inst.data[f.id]=inEl.value;charCount(inEl,f.max,cnt);renderPreview()};
+                        const cnt=el('div','char-counter');charCount(inEl,f.max,cnt);
+                        panelGroup.append(lab,inEl,cnt);
+                    }
+                });
+                const imgDef = def.images.find(img => img.id === `desk${i}`);
+                if (imgDef) {
+                    const area=el('div','image-upload-area');
+                    const lab=el('label'); lab.htmlFor = `img-input-${inst.uid}-${imgDef.id}`; lab.textContent=`${imgDef.label} (cons. ${imgDef.w}x${imgDef.h}px)*`;
+                    const fi=el('input');fi.type='file';fi.accept='image/*'; fi.id = `img-input-${inst.uid}-${imgDef.id}`;
+                    const prev=el('img','image-preview');
+                    const altLab = el('label'); altLab.htmlFor = `alt-input-${inst.uid}-${imgDef.id}`; altLab.textContent = `Alt text (max ${imgDef.alt})`;
+                    const alt=el('input');alt.type='text';alt.placeholder='Alt text...';alt.maxLength=imgDef.alt; alt.id=`alt-input-${inst.uid}-${imgDef.id}`;
+                    if(inst.data[imgDef.id]?.src){prev.src=inst.data[imgDef.id].src; prev.style.display='block';} else {prev.style.display='none';}
+                    alt.value=inst.data[imgDef.id]?.alt||'';
+                    fi.onchange=e=>{ 
+                        const file=e.target.files[0];
+                        if(file&&file.type.startsWith('image/')){
+                            const r=new FileReader();
+                            r.onload=ev=>{
+                                inst.data[imgDef.id]={src:ev.target.result,alt:inst.data[imgDef.id]?.alt||''};
+                                prev.src=ev.target.result;prev.style.display='block';
+                                renderPreview();
+                            };
+                            r.readAsDataURL(file);
+                        } else {
+                            if(inst.data[imgDef.id]) delete inst.data[imgDef.id].src;
+                            prev.src=''; prev.style.display='none';
+                            renderPreview();
+                        }
+                    };
+                    alt.oninput=()=>{
+                        if(!inst.data[imgDef.id]) inst.data[imgDef.id]={src:prev.src||null,alt:''};
+                        inst.data[imgDef.id].alt=alt.value;
+                        renderPreview();
+                    };
+                    area.append(lab,fi,prev,altLab,alt);panelGroup.appendChild(area);
+                }
+                wrap.appendChild(panelGroup);
+            }
+        } else if (def.images && !def.panelCount && !def.panelSchema) { 
+            def.images.forEach(img=>{
+                const area=el('div','image-upload-area');
+                 const lab=el('label'); lab.htmlFor = `img-input-${inst.uid}-${img.id}`; lab.textContent=`${img.label} (cons. ${img.w}x${img.h}px)*`;
+                const fi=el('input');fi.type='file';fi.accept='image/*'; fi.id = `img-input-${inst.uid}-${img.id}`;
+                const prev=el('img','image-preview');
+                const altLab = el('label'); altLab.htmlFor = `alt-input-${inst.uid}-${img.id}`; altLab.textContent = `Alt text (max ${img.alt})`;
+                const alt=el('input');alt.type='text';alt.placeholder='Alt text...';alt.maxLength=img.alt; alt.id=`alt-input-${inst.uid}-${img.id}`;
+
+                if(inst.data[img.id]?.src){prev.src=inst.data[img.id].src; prev.style.display='block';} else {prev.style.display='none';}
+                alt.value=inst.data[img.id]?.alt||'';
+                
+                fi.onchange=e=>{
+                    const file=e.target.files[0];
+                    if(file&&file.type.startsWith('image/')){
+                        const r=new FileReader();
+                        r.onload=ev=>{
+                            inst.data[img.id]={src:ev.target.result,alt:inst.data[img.id]?.alt||''};
+                            prev.src=ev.target.result;prev.style.display='block';
+                            renderPreview();
+                        };
+                        r.readAsDataURL(file);
+                    } else {
+                        if(inst.data[img.id]) delete inst.data[img.id].src;
+                        prev.src=''; prev.style.display='none';
+                        renderPreview();
+                    }
+                };
+                alt.oninput=()=>{
+                    if(!inst.data[img.id]) inst.data[img.id]={src:prev.src||null,alt:''};
+                    inst.data[img.id].alt=alt.value;
+                    renderPreview();
+                };
+                area.append(lab,fi,prev,altLab,alt);wrap.appendChild(area);
+            });
+        }
+        
+        if (def.extra) {
+            Object.keys(def.extra).forEach(extraKey => {
+                const options = def.extra[extraKey];
+                if (Array.isArray(options) && (extraKey === 'align' || extraKey === 'bg' || extraKey === 'textOverlayAlign')) {
+                    const lab = el('label'); lab.htmlFor = `extra-${inst.uid}-${extraKey}`;
+                    let labelText = `Opzione ${extraKey.charAt(0).toUpperCase() + extraKey.slice(1)}:`;
+                    if (extraKey === 'textOverlayAlign') labelText = 'Allineamento Overlay Testo:';
+                    lab.textContent = labelText;
+
+                    const sel = el('select'); sel.id = `extra-${inst.uid}-${extraKey}`;
+                    options.forEach(optVal => {
+                        const opt = el('option');
+                        opt.value = optVal;
+                        opt.textContent = optVal.charAt(0).toUpperCase() + optVal.slice(1);
+                        sel.appendChild(opt);
+                    });
+                    sel.value = inst.data[extraKey] || options[0];
+                    sel.onchange = () => {
+                        inst.data[extraKey] = sel.value;
+                        renderPreview();
+                    };
+                    wrap.append(lab, sel);
+                }
+            });
+        }
+        inputsDiv.appendChild(wrap);
+    });
+    updateCounter();renderPreview();
+}
+
+/* ------------------------------------------------------
+    8. RENDER PREVIEW
+------------------------------------------------------ */
+function renderPreview(){
+    preview.innerHTML='';
+    if(!selModules.length){preview.innerHTML='<p>L’anteprima apparirà qui.</p>';return}
+
+    const createTextElement = (tag, content, className) => {
+        if (!content || String(content).trim() === '') return null;
+        const element = el(tag);
+        if (className) element.className = className;
+        element.innerHTML = String(content).replace(/\n/g, '<br>');
+        return element;
+    };
+    
+    const createImageElement = (imgData, defaultAlt, className, recW, recH, isFixedSizePreview = false, fixedHeight = 175) => {
+        const container = el('div');
+        let actualImgElement; 
+
+        if (isFixedSizePreview) {
+            container.className = 'img-container-fixed-size';
+            if (fixedHeight) container.style.height = `${fixedHeight}px`;
+            container.style.width = '100%';
+        } else {
+             if (className) container.className = className;
+        }
+
+        if (!imgData?.src) {
+            const placeholderContent = el('div');
+            if (isFixedSizePreview) {
+                placeholderContent.className = 'image-placeholder-large img-container-fixed-size';
+                if (fixedHeight) placeholderContent.style.height = `${fixedHeight}px`;
+            } else {
+                placeholderContent.className = 'image-placeholder-content';
+                 placeholderContent.style.width = `${recW}px`;
+                 placeholderContent.style.height = `${recH}px`;
+                 placeholderContent.style.margin = '0 auto 10px auto';
+            }
+            placeholderContent.textContent = `Img ${recW}x${recH}`;
+            actualImgElement = placeholderContent;
+        } else {
+            const img = el('img');
+            img.src = imgData.src;
+            img.alt = imgData.alt || defaultAlt;
+            if (className && !isFixedSizePreview) img.className = className;
+            actualImgElement = img;
+        }
+        
+        if (isFixedSizePreview) {
+            container.appendChild(actualImgElement);
+            return container;
+        } else { 
+            return actualImgElement;
+        }
+    };
+
+
+    selModules.forEach(inst=>{
+        const def=byId(inst.type);
+        const box=el('div','preview-module preview-'+inst.type);
+        if (def.extra && inst.data.align) box.classList.add('align-' + inst.data.align);
+        if (def.extra && inst.data.bg) box.classList.add('bg-' + inst.data.bg);
+
+
+        switch(inst.type){
+            case 'PREMIUM_BACKGROUND_IMAGE_TEXT': {
+                const imgContainer = el('div', 'bg-image-container');
+                imgContainer.appendChild(createImageElement(inst.data.desk, def.images[0].label, null, def.images[0].w, def.images[0].h, false));
+                box.appendChild(imgContainer);
+
+                const textOverlay = el('div', 'text-overlay');
+                if (inst.data.align) textOverlay.classList.add('align-' + inst.data.align);
+                if (inst.data.bg) textOverlay.classList.add('bg-' + inst.data.bg);
+
+                if(inst.data.sub) textOverlay.appendChild(createTextElement('h4', inst.data.sub, 'sub-headline'));
+                if(inst.data.head) textOverlay.appendChild(createTextElement('h3', inst.data.head, 'headline'));
+                if(inst.data.body) textOverlay.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+                if (textOverlay.hasChildNodes()) box.appendChild(textOverlay);
+                break;
+            }
+            case 'PREMIUM_DUAL_IMAGES_TEXT': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                const layout = el('div', 'dual-image-layout');
+                for (let i = 1; i <= 2; i++) {
+                    const block = el('div', 'image-block');
+                    block.appendChild(createImageElement(inst.data[`img${i}`], def.images[i-1].label, null, def.images[i-1].w, def.images[i-1].h, true, 175));
+                    if(inst.data[`head${i}`]) block.appendChild(createTextElement('h4', inst.data[`head${i}`], 'headline'));
+                    if(inst.data[`body${i}`]) block.appendChild(createTextElement('p', inst.data[`body${i}`], 'body-text'));
+                    layout.appendChild(block);
+                }
+                box.appendChild(layout);
+                break;
+            }
+            case 'PREMIUM_FOUR_IMAGES_TEXT': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                const layout = el('div', 'four-image-layout');
+                for (let i = 1; i <= 4; i++) {
+                    const block = el('div', 'image-block');
+                    block.appendChild(createImageElement(inst.data[`img${i}`], def.images[i-1].label, null, def.images[i-1].w, def.images[i-1].h, true, 112));
+                    if(inst.data[`h${i}`]) block.appendChild(createTextElement('h4', inst.data[`h${i}`], 'headline'));
+                    if(inst.data[`b${i}`]) block.appendChild(createTextElement('p', inst.data[`b${i}`], 'body-text'));
+                    layout.appendChild(block);
+                }
+                box.appendChild(layout);
+                break;
+            }
+            case 'PREMIUM_FULL_IMAGE': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline'));
+                box.appendChild(createImageElement(inst.data.desk, def.images[0].label, null, def.images[0].w, def.images[0].h, false));
+                if(inst.data.body) box.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+                break;
+            }
+            case 'PREMIUM_FULL_VIDEO': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                const videoCont = el('div', 'video-container');
+                videoCont.appendChild(createImageElement(inst.data.thumb, def.images[0].label, 'video-thumbnail', def.images[0].w, def.images[0].h, false));
+                if(inst.data.vidTitle) videoCont.appendChild(createTextElement('h4', inst.data.vidTitle, 'video-title'));
+                if(inst.data.vidDesc) videoCont.appendChild(createTextElement('p', inst.data.vidDesc, 'video-description'));
+                if(inst.data.video) videoCont.appendChild(createTextElement('p', `URL: ${inst.data.video}`, 'video-url-info'));
+                box.appendChild(videoCont);
+                if(inst.data.body) box.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+                break;
+            }
+            case 'PREMIUM_HOTSPOTS_1':
+            case 'PREMIUM_HOTSPOTS_2': {
+                const imgContainer = el('div', 'hotspot-image-container'); 
+                const mainImageElement = createImageElement(inst.data.desk, def.images[0].label, null, def.images[0].w, def.images[0].h, false);
+                imgContainer.appendChild(mainImageElement);
+                
+                if (inst.type === 'PREMIUM_HOTSPOTS_2' && inst.data.head) {
+                    box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                }
+                box.appendChild(imgContainer);
+                if (inst.type === 'PREMIUM_HOTSPOTS_2' && inst.data.body) {
+                     box.appendChild(createTextElement('p', inst.data.body, 'body-text module-body'));
+                }
+                
+                const maxHotspots = def.extra?.maxHot || 6;
+                let activePopup = null;
+
+                const setupHotspots = () => {
+                    imgContainer.querySelectorAll('.hotspot-marker, .hotspot-popup').forEach(el => el.remove());
+                    for (let i = 1; i <= maxHotspots; i++) {
+                        const hsHeadline = inst.data[`h${i}`];
+                        const hsBody = inst.type === 'PREMIUM_HOTSPOTS_1' ? inst.data[`b${i}`] : null;
+
+                        if (hsHeadline) {
+                            const marker = el('div', 'hotspot-marker');
+                            const size = hotspotMarkerCurrentSize();
+                            marker.style.width = `${size}px`;
+                            marker.style.height = `${size}px`;
+                            marker.style.fontSize = `${Math.max(10, size * 0.4)}px`;
+                            marker.textContent = i;
+                            marker.style.top = `${10 + (i * 10)}%`; 
+                            marker.style.left = `${10 + ((i % 3) * 25)}%`; 
+                            
+                            const popup = el('div', 'hotspot-popup');
+                            popup.appendChild(createTextElement('h5', hsHeadline));
+                            if (hsBody) popup.appendChild(createTextElement('p', hsBody));
+                            
+                            marker.onclick = (e) => {
+                                e.stopPropagation();
+                                if (activePopup && activePopup !== popup) {
+                                    activePopup.style.display = 'none';
+                                }
+                                const isCurrentlyVisible = popup.style.display === 'block';
+                                popup.style.display = isCurrentlyVisible ? 'none' : 'block';
+                                
+                                if (!isCurrentlyVisible) {
+                                    activePopup = popup;
+                                    const markerRect = marker.getBoundingClientRect();
+                                    const containerRect = imgContainer.getBoundingClientRect();
+                                    
+                                    let top = marker.offsetTop + marker.offsetHeight + 5; 
+                                    let left = marker.offsetLeft + (marker.offsetWidth / 2) - (popup.offsetWidth / 2);
+
+                                    if (left < 0) left = 5;
+                                    if (left + popup.offsetWidth > imgContainer.offsetWidth) {
+                                        left = imgContainer.offsetWidth - popup.offsetWidth - 5;
+                                    }
+                                    if (top + popup.offsetHeight > imgContainer.offsetHeight) {
+                                        top = marker.offsetTop - popup.offsetHeight - 5;
+                                    }
+                                    if (top < 0) top = 5;
+
+                                    popup.style.top = `${top}px`;
+                                    popup.style.left = `${left}px`;
+                                } else {
+                                    activePopup = null;
+                                }
+                            };
+                            imgContainer.appendChild(marker);
+                            imgContainer.appendChild(popup);
+                        }
+                    }
+                };
+
+                if (mainImageElement.firstChild && mainImageElement.firstChild.tagName === 'IMG') {
+                    const actualImage = mainImageElement.firstChild;
+                    if (actualImage.complete) {
+                        setupHotspots();
+                    } else {
+                        actualImage.onload = setupHotspots;
+                    }
+                }
+
+                const mobilePreviewsContainer = el('div', 'hotspot-mobile-previews');
+                let hasMobilePreviews = false;
+                for (let i = 1; i <= maxHotspots; i++) {
+                    if (inst.data[`mob${i}`]?.src) {
+                        if (!hasMobilePreviews) {
+                             mobilePreviewsContainer.appendChild(createTextElement('h5', 'Anteprime Immagini Mobile Hotspot:'));
+                             hasMobilePreviews = true;
+                        }
+                        const mobItem = el('div', 'hotspot-mobile-preview-item');
+                        mobItem.appendChild(createTextElement('p', `Hotspot ${i}:`));
+                        mobItem.appendChild(createImageElement(inst.data[`mob${i}`], `Mobile Hotspot ${i}`, null, def.images[i].w, def.images[i].h, false));
+                        mobilePreviewsContainer.appendChild(mobItem);
+                    }
+                }
+                if(hasMobilePreviews) box.appendChild(mobilePreviewsContainer);
+                
+                document.addEventListener('click', (e) => {
+                    if (activePopup && !activePopup.contains(e.target) && !e.target.classList.contains('hotspot-marker')) {
+                        activePopup.style.display = 'none';
+                        activePopup = null;
+                    }
+                }, true);
+                break;
+            }
+            case 'PREMIUM_NAVIGATION_CAROUSEL': {
+                if(inst.data.moduleHeadline) box.appendChild(createTextElement('h3', inst.data.moduleHeadline, 'headline module-headline'));
+                const numPanels = 5;
+                let firstPanelRendered = false;
+                const subsequentPanelsContainer = el('div', 'subsequent-panels-container');
+                subsequentPanelsContainer.style.display = 'none'; 
+                let subsequentPanelsCount = 0;
+
+                for (let i = 1; i <= numPanels; i++) {
+                    const panelNavText = inst.data[`nav${i}`];
+                    const panelImageSrc = inst.data[`desk${i}`]?.src;
+                    const panelSubHeadline = inst.data[`sub${i}`];
+                    const panelHeadline = inst.data[`head${i}`];
+                    const panelBody = inst.data[`body${i}`];
+
+                    if (panelNavText || panelImageSrc || panelSubHeadline || panelHeadline || panelBody) {
+                        const panelWrapper = el('div', 'carousel-panel-wrapper');
+                        if(panelNavText) panelWrapper.appendChild(createTextElement('div', `Pannello ${i}: ${panelNavText}`, 'panel-nav-text'));
+                        else panelWrapper.appendChild(createTextElement('div', `Pannello ${i}`, 'panel-nav-text'));
+
+
+                        const panelContent = el('div', 'panel-content');
+                        const panelImageContainer = el('div', 'panel-image-container');
+                        panelImageContainer.appendChild(createImageElement(inst.data[`desk${i}`], `Immagine Pannello ${i}`, null, def.images[i-1].w, def.images[i-1].h, true, 300));
+                        panelContent.appendChild(panelImageContainer);
+
+                        const textOverlay = el('div', 'panel-text-overlay');
+                        const overlayAlign = inst.data.textOverlayAlign || def.extra.textOverlayAlign[0];
+                        textOverlay.classList.add(`overlay-align-${overlayAlign}`);
+                        if(panelSubHeadline) textOverlay.appendChild(createTextElement('h4', panelSubHeadline, 'sub-headline'));
+                        if(panelHeadline) textOverlay.appendChild(createTextElement('h3', panelHeadline, 'headline'));
+                        if(panelBody) textOverlay.appendChild(createTextElement('p', panelBody, 'body-text'));
+                        if (textOverlay.hasChildNodes()) panelContent.appendChild(textOverlay);
+                        
+                        panelWrapper.appendChild(panelContent);
+
+                        if (!firstPanelRendered) {
+                            box.appendChild(panelWrapper);
+                            firstPanelRendered = true;
+                        } else {
+                            subsequentPanelsContainer.appendChild(panelWrapper);
+                            subsequentPanelsCount++;
+                        }
+                    }
+                }
+
+                if (subsequentPanelsCount > 0) {
+                    const toggleBtn = el('button', 'toggle-panels-btn');
+                    toggleBtn.textContent = 'Mostra Altri Pannelli';
+                    toggleBtn.onclick = () => {
+                        const isHidden = subsequentPanelsContainer.style.display === 'none';
+                        subsequentPanelsContainer.style.display = isHidden ? 'block' : 'none';
+                        toggleBtn.textContent = isHidden ? 'Nascondi Altri Pannelli' : 'Mostra Altri Pannelli';
+                    };
+                    box.appendChild(toggleBtn);
+                    box.appendChild(subsequentPanelsContainer);
+                } else if (!firstPanelRendered) {
+                     box.appendChild(createTextElement('p', 'Nessun pannello del carosello compilato.', 'missing-preview'));
+                }
+                break;
+            }
+            case 'PREMIUM_REGIMEN_CAROUSEL': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                
+                const numPanels = 5;
+                const mainLayoutWrapper = el('div'); 
+                const subsequentPanelsContainer = el('div', 'subsequent-panels-container');
+                subsequentPanelsContainer.style.display = 'none';
+                let subsequentPanelsCount = 0;
+                let firstPanelHasBeenRendered = false;
+
+                const createRegimenPanelInternal = (panelIndex, isActivePanel) => {
+                    const panelHeadlineText = inst.data[`h${panelIndex}`];
+                    const panelBodyText = inst.data[`b${panelIndex}`];
+                    const panelImageSrc = inst.data[`desk${panelIndex}`]?.src;
+                    const panelNavText = inst.data[`nav${panelIndex}`];
+
+                    if (!panelHeadlineText && !panelBodyText && !panelImageSrc && !panelNavText) {
+                        if (isActivePanel && !firstPanelHasBeenRendered) {}
+                        else return null; 
+                    }
+
+                    const panelContainer = el('div', 'regimen-panel-container');
+                    panelContainer.style.height = isActivePanel ? '350px' : '320px';
+                    
+                    if (!isActivePanel) {
+                         const titleText = panelNavText ? `Carosello ${panelIndex}: ${panelNavText}` : `Carosello ${panelIndex}`;
+                         panelContainer.appendChild(createTextElement('div', titleText, 'panel-nav-text-title'));
+                    }
+
+                    if (panelImageSrc) {
+                        panelContainer.style.backgroundImage = `url(${panelImageSrc})`;
+                    } else {
+                        const imgPlaceholder = el('div', 'regimen-main-image-background');
+                        imgPlaceholder.style.display = 'flex';
+                        imgPlaceholder.style.alignItems = 'center';
+                        imgPlaceholder.style.justifyContent = 'center';
+                        imgPlaceholder.style.backgroundColor = '#e0e0e0';
+                        imgPlaceholder.style.width = '100%';
+                        imgPlaceholder.style.height = '100%';
+                        imgPlaceholder.style.position = 'absolute';
+                        imgPlaceholder.style.zIndex = '0';
+                        imgPlaceholder.textContent = `Immagine Pannello ${panelIndex} (1464x600)`;
+                        panelContainer.appendChild(imgPlaceholder);
+                    }
+                    
+                    const textBox = el('div', 'regimen-text-box-overlay');
+                    if(panelHeadlineText) textBox.appendChild(createTextElement('h4', panelHeadlineText, 'headline'));
+                    if(panelBodyText) textBox.appendChild(createTextElement('p', panelBodyText, 'body-text'));
+                    if (textBox.hasChildNodes() || isActivePanel) { 
+                         panelContainer.appendChild(textBox);
+                    }
+                    
+                    const navColumn = el('div', 'regimen-nav-column-overlay');
+                    for (let j = 1; j <= numPanels; j++) {
+                        const currentNavText = inst.data[`nav${j}`];
+                        if (currentNavText) {
+                            const navItem = createTextElement('div', currentNavText, 'regimen-nav-item');
+                            if (j === panelIndex) navItem.classList.add('active');
+                            navColumn.appendChild(navItem);
+                        }
+                    }
+                    if (navColumn.hasChildNodes()) panelContainer.appendChild(navColumn);
+                    
+                    return panelContainer;
+                };
+
+                let firstActivePanelIndex = -1;
+                for (let i = 1; i <= numPanels; i++) {
+                    if (inst.data[`h${i}`] || inst.data[`b${i}`] || inst.data[`desk${i}`]?.src || inst.data[`nav${i}`]) {
+                        firstActivePanelIndex = i;
+                        const firstPanelElement = createRegimenPanelInternal(i, true); 
+                        if (firstPanelElement) {
+                            mainLayoutWrapper.appendChild(firstPanelElement);
+                            firstPanelHasBeenRendered = true;
+                        }
+                        break; 
+                    }
+                }
+                
+                for (let i = 1; i <= numPanels; i++) {
+                    if (i === firstActivePanelIndex && firstPanelHasBeenRendered) continue; 
+                    const subsequentPanelElement = createRegimenPanelInternal(i, false);
+                    if (subsequentPanelElement) {
+                        subsequentPanelsContainer.appendChild(subsequentPanelElement);
+                        subsequentPanelsCount++;
+                    }
+                }
+                
+                box.appendChild(mainLayoutWrapper);
+
+                if (subsequentPanelsCount > 0) {
+                    const toggleBtn = el('button', 'toggle-panels-btn');
+                    toggleBtn.textContent = 'Mostra Altri Caroselli';
+                    toggleBtn.onclick = () => {
+                        const isHidden = subsequentPanelsContainer.style.display === 'none';
+                        subsequentPanelsContainer.style.display = isHidden ? 'block' : 'none';
+                        toggleBtn.textContent = isHidden ? 'Nascondi Altri Caroselli' : 'Mostra Altri Caroselli';
+                    };
+                    box.appendChild(toggleBtn);
+                    box.appendChild(subsequentPanelsContainer);
+                } else if (!firstPanelHasBeenRendered) {
+                    box.appendChild(createTextElement('p', 'Nessun pannello del carosello compilato.', 'missing-preview'));
+                }
+                break;
+            }
+            case 'PREMIUM_SIMPLE_IMAGE_CAROUSEL': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                
+                const numPanels = 6;
+                let firstPanelRendered = false;
+                const subsequentPanelsContainer = el('div', 'subsequent-panels-container');
+                subsequentPanelsContainer.style.display = 'none';
+                let subsequentPanelsCount = 0;
+                const indicatorsContainer = el('div', 'simple-carousel-indicators');
+                let activeIndicatorIndex = -1;
+
+                const createSimpleCarouselCardInternal = (panelIndex) => {
+                    const panelHeadline = inst.data[`h${panelIndex}`];
+                    const panelBody = inst.data[`b${panelIndex}`];
+                    const panelButtonText = inst.data[`btn${panelIndex}`];
+                    const panelAsin = inst.data[`asin${panelIndex}`];
+                    const panelImageSrc = inst.data[`desk${panelIndex}`]?.src;
+                    const showButton = inst.data[`showBtn${panelIndex}`];
+
+
+                    if (!panelHeadline && !panelBody && !panelButtonText && !panelAsin && !panelImageSrc) {
+                        return null;
+                    }
+
+                    const card = el('div', 'simple-carousel-card');
+                    if (panelImageSrc) {
+                        card.style.backgroundImage = `url(${panelImageSrc})`;
+                    } else {
+                        const placeholder = el('div', 'image-placeholder-large');
+                        placeholder.textContent = `Immagine Pannello ${panelIndex} (${def.images[panelIndex-1].w}x${def.images[panelIndex-1].h})`;
+                        placeholder.style.height = '100%';
+                        placeholder.style.display = 'flex';
+                        placeholder.style.alignItems = 'center';
+                        placeholder.style.justifyContent = 'center';
+                        card.appendChild(placeholder);
+                    }
+
+                    const textOverlay = el('div', 'simple-carousel-text-overlay');
+                    if(panelHeadline) textOverlay.appendChild(createTextElement('h4', panelHeadline, 'headline'));
+                    if(panelBody) textOverlay.appendChild(createTextElement('p', panelBody, 'body-text'));
+                    
+                    if (showButton && panelButtonText) {
+                        const btnLink = createTextElement('a', panelButtonText, 'simple-carousel-button-link');
+                        if (btnLink) {
+                             if (panelAsin) btnLink.href = `https://www.amazon.com/dp/${panelAsin}`;
+                             else btnLink.href = '#'; 
+                             btnLink.target = '_blank';
+                             textOverlay.appendChild(btnLink);
+                        }
+                    }
+                    
+                    if(panelAsin) {
+                        const asinLink = el('a', 'simple-carousel-asin-box');
+                        asinLink.href = `https://www.amazon.com/dp/${panelAsin}`;
+                        asinLink.target = '_blank';
+                        asinLink.rel = 'noopener noreferrer';
+                        asinLink.appendChild(createTextElement('span', `ASIN: ${panelAsin}`));
+                        textOverlay.appendChild(asinLink);
+                    }
+                    if (textOverlay.hasChildNodes()) card.appendChild(textOverlay);
+                    
+                    return card;
+                };
+
+                for (let i = 1; i <= numPanels; i++) {
+                    const cardElement = createSimpleCarouselCardInternal(i);
+                    if (cardElement) {
+                        if (!firstPanelRendered) {
+                            box.appendChild(cardElement);
+                            firstPanelRendered = true;
+                            activeIndicatorIndex = i; 
+                        } else {
+                            const titleText = inst.data[`h${i}`] ? `Carosello ${i}: ${inst.data[`h${i}`]}` : `Carosello ${i}`;
+                            const panelTitle = createTextElement('div', titleText, 'simple-carousel-card-title');
+                            if(panelTitle) subsequentPanelsContainer.appendChild(panelTitle);
+                            subsequentPanelsContainer.appendChild(cardElement);
+                            subsequentPanelsCount++;
+                        }
+                        const dot = el('span', 'indicator-dot');
+                        dot.dataset.panelIndex = i;
+                        indicatorsContainer.appendChild(dot);
+                    }
+                }
+                
+                if (firstPanelRendered) {
+                    const dots = indicatorsContainer.querySelectorAll('.indicator-dot');
+                    if (dots.length > 0 && activeIndicatorIndex !== -1) {
+                        dots.forEach(d => {
+                            if (parseInt(d.dataset.panelIndex) === activeIndicatorIndex) {
+                                d.classList.add('active');
+                            }
+                        });
+                    }
+                    box.appendChild(indicatorsContainer);
+                }
+
+
+                if (subsequentPanelsCount > 0) {
+                    const toggleBtn = el('button', 'toggle-panels-btn');
+                    toggleBtn.textContent = 'Mostra Altri Caroselli';
+                    toggleBtn.onclick = () => {
+                        const isHidden = subsequentPanelsContainer.style.display === 'none';
+                        subsequentPanelsContainer.style.display = isHidden ? 'block' : 'none';
+                        toggleBtn.textContent = isHidden ? 'Nascondi Altri Caroselli' : 'Mostra Altri Caroselli';
+                    };
+                    box.appendChild(toggleBtn);
+                    box.appendChild(subsequentPanelsContainer);
+                } else if (!firstPanelRendered) {
+                    box.appendChild(createTextElement('p', 'Nessun pannello del carosello compilato.', 'missing-preview'));
+                }
+                break;
+            }
+            case 'PREMIUM_VIDEO_IMAGE_CAROUSEL': { 
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                const numPanels = def.panelCount || 6;
+                let firstPanelRendered = false;
+                const subsequentPanelsContainer = el('div', 'subsequent-panels-container');
+                subsequentPanelsContainer.style.display = 'none';
+                let subsequentPanelsCount = 0;
+                const indicatorsContainer = el('div', 'video-image-indicators');
+                let activeIndicatorIndex = -1;
+
+                const createVideoImageCarouselCardInternal = (panelIndex) => {
+                    const panelType = inst.data[`panelType${panelIndex}`] || 'immagine';
+                    const textAlignment = inst.data[`textAlignment${panelIndex}`] || 'sinistra';
+                    const itemHeadline = inst.data[`itemHeadline${panelIndex}`];
+                    const itemSubHeadline = inst.data[`itemSubHeadline${panelIndex}`];
+                    const itemBody = inst.data[`itemBody${panelIndex}`];
+                    const mediaData = inst.data[`media${panelIndex}`];
+                    const videoTitle = inst.data[`videoTitle${panelIndex}`];
+                    const videoDescription = inst.data[`videoDescription${panelIndex}`];
+
+                    if (!itemHeadline && !itemSubHeadline && !itemBody && !mediaData?.src && panelType === 'immagine') {
+                        if (!videoTitle && !videoDescription && !mediaData?.src && panelType === 'video') return null;
+                    }
+                    
+                    const card = el('div', 'video-image-carousel-card');
+                    card.classList.add(textAlignment === 'sinistra' ? 'text-align-left' : 'text-align-right');
+
+                    const textOverlay = el('div', 'video-image-text-overlay');
+                    if(itemHeadline) textOverlay.appendChild(createTextElement('h4', itemHeadline, 'headline'));
+                    if(itemSubHeadline) textOverlay.appendChild(createTextElement('h5', itemSubHeadline, 'sub-headline'));
+                    if(itemBody) textOverlay.appendChild(createTextElement('p', itemBody, 'body-text'));
+                    
+                    const mediaArea = el('div', 'video-image-media-area');
+
+                    if (panelType === 'immagine') {
+                        if (mediaData?.src) {
+                            const imgElement = createImageElement(mediaData, `Immagine Pannello ${panelIndex}`, null, 800, 600, true, card.offsetHeight > 0 ? card.offsetHeight : 300); 
+                            mediaArea.appendChild(imgElement);
+                        } else {
+                            mediaArea.appendChild(createImageElement(null, `Immagine Pannello ${panelIndex}`, null, 800, 600, true, card.offsetHeight > 0 ? card.offsetHeight : 300));
+                        }
+                        card.style.backgroundImage = 'none'; 
+                    } else { // Tipo Video
+                        card.style.backgroundImage = 'none'; 
+                        const videoContentWrapper = el('div'); 
+                        videoContentWrapper.style.height = '100%';
+                        videoContentWrapper.style.display = 'flex';
+                        videoContentWrapper.style.flexDirection = 'column';
+                        videoContentWrapper.style.justifyContent = 'center';
+
+                        if (mediaData?.src) { 
+                            const thumbElement = createImageElement(mediaData, `Thumbnail Video ${panelIndex}`, null, 800, 600, true, 225);
+                            const playIcon = el('span', 'play-icon'); playIcon.innerHTML = '&#9658;'; 
+                            thumbElement.style.position = 'relative'; 
+                            thumbElement.appendChild(playIcon);
+                            videoContentWrapper.appendChild(thumbElement);
+                        } else {
+                            videoContentWrapper.appendChild(createImageElement(null, `Thumbnail Video ${panelIndex}`, null, 800, 600, true, 225));
+                        }
+                        const videoInfo = el('div', 'video-info');
+                        if(videoTitle) videoInfo.appendChild(createTextElement('h4', videoTitle, 'video-title'));
+                        if(videoDescription) videoInfo.appendChild(createTextElement('p', videoDescription, 'video-description'));
+                        if(videoInfo.hasChildNodes()) videoContentWrapper.appendChild(videoInfo);
+                        mediaArea.appendChild(videoContentWrapper);
+                    }
+                    
+                    if (textAlignment === 'sinistra') {
+                        card.append(textOverlay, mediaArea);
+                    } else {
+                        card.append(mediaArea, textOverlay);
+                    }
+                    return card;
+                };
+
+
+                for (let i = 1; i <= numPanels; i++) {
+                    const cardElement = createVideoImageCarouselCardInternal(i);
+                    if (cardElement) {
+                        if (!firstPanelRendered) {
+                            box.appendChild(cardElement);
+                            firstPanelRendered = true;
+                            activeIndicatorIndex = i; 
+                        } else {
+                            const titleText = inst.data[`itemHeadline${i}`] ? `Carosello ${i}: ${inst.data[`itemHeadline${i}`]}` : `Carosello ${i}`;
+                            const panelTitle = createTextElement('div', titleText, 'video-image-carousel-card-title');
+                            if(panelTitle) subsequentPanelsContainer.appendChild(panelTitle);
+                            subsequentPanelsContainer.appendChild(cardElement);
+                            subsequentPanelsCount++;
+                        }
+                        const dot = el('span', 'indicator-dot');
+                        dot.dataset.panelIndex = i;
+                        indicatorsContainer.appendChild(dot);
+                    }
+                }
+                
+                if (firstPanelRendered) {
+                    const dots = indicatorsContainer.querySelectorAll('.indicator-dot');
+                    if (dots.length > 0 && activeIndicatorIndex !== -1) {
+                        dots.forEach(d => {
+                            if (parseInt(d.dataset.panelIndex) === activeIndicatorIndex) {
+                                d.classList.add('active');
+                            }
+                        });
+                    }
+                    box.appendChild(indicatorsContainer);
+                }
+
+                if (subsequentPanelsCount > 0) {
+                    const toggleBtn = el('button', 'toggle-panels-btn');
+                    toggleBtn.textContent = 'Mostra Altri Caroselli';
+                    toggleBtn.onclick = () => {
+                        const isHidden = subsequentPanelsContainer.style.display === 'none';
+                        subsequentPanelsContainer.style.display = isHidden ? 'block' : 'none';
+                        toggleBtn.textContent = isHidden ? 'Nascondi Altri Caroselli' : 'Mostra Altri Caroselli';
+                    };
+                    box.appendChild(toggleBtn);
+                    box.appendChild(subsequentPanelsContainer);
+                } else if (!firstPanelRendered) {
+                    box.appendChild(createTextElement('p', 'Nessun pannello del carosello compilato.', 'missing-preview'));
+                }
+                break;
+            }
+            case 'PREMIUM_Q_A': {
+                for (let i = 1; i <= 5; i++) {
+                    const questionText = inst.data[`q${i}`];
+                    const answerText = inst.data[`a${i}`];
+
+                    if (questionText) {
+                        const qaWrapper = el('div', 'qa-item-wrapper');
+                        
+                        const questionHeader = el('div', 'qa-question-header');
+                        const qLabel = el('span', 'qa-label qa-label-q');
+                        qLabel.textContent = 'Q';
+                        const qText = el('span', 'qa-question-text');
+                        qText.innerHTML = questionText.replace(/\n/g, '<br>');
+                        const arrow = el('span', 'qa-toggle-arrow');
+                        arrow.innerHTML = '&#9660;'; 
+
+                        questionHeader.append(qLabel, qText, arrow);
+                        qaWrapper.appendChild(questionHeader);
+
+                        const answerContent = el('div', 'qa-answer-content');
+                        if (answerText) {
+                            const aLabel = el('span', 'qa-label qa-label-a');
+                            aLabel.textContent = 'A';
+                            const aText = el('span', 'qa-answer-text');
+                            aText.innerHTML = answerText.replace(/\n/g, '<br>');
+                            answerContent.append(aLabel, aText);
+                        } else {
+                             answerContent.innerHTML = '<p><em>Nessuna risposta fornita.</em></p>';
+                        }
+                        qaWrapper.appendChild(answerContent);
+
+                        questionHeader.onclick = () => {
+                            const isExpanded = answerContent.style.display === 'block';
+                            answerContent.style.display = isExpanded ? 'none' : 'block';
+                            arrow.innerHTML = isExpanded ? '&#9660;' : '&#9650;';
+                            arrow.classList.toggle('expanded', !isExpanded);
+                        };
+                        box.appendChild(qaWrapper);
+                    }
+                }
+                if (box.children.length === 0) {
+                     box.appendChild(createTextElement('p', 'Nessuna Domanda e Risposta inserita.', 'missing-preview'));
+                }
+                break;
+            }
+            case 'PREMIUM_SINGLE_IMAGE_TEXT': {
+                const wrapper = el('div', 'content-wrapper');
+                const textCol = el('div', 'text-column');
+                if(inst.data.sub) textCol.appendChild(createTextElement('h4', inst.data.sub, 'sub-headline'));
+                if(inst.data.head) textCol.appendChild(createTextElement('h3', inst.data.head, 'headline'));
+                if(inst.data.body) textCol.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+                
+                const imgCol = el('div', 'image-column');
+                imgCol.appendChild(createImageElement(inst.data.img, def.images[0].label, null, def.images[0].w, def.images[0].h, true, 300));
+                
+                wrapper.append(imgCol, textCol);
+                box.appendChild(wrapper);
+                break;
+            }
+            case 'PREMIUM_TEXT': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline'));
+                if(inst.data.body) box.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+                break;
+            }
+            case 'PREMIUM_VIDEO_TEXT': {
+                const wrapper = el('div', 'content-wrapper');
+                const textCol = el('div', 'text-column');
+                if(inst.data.sub) textCol.appendChild(createTextElement('h4', inst.data.sub, 'sub-headline'));
+                if(inst.data.head) textCol.appendChild(createTextElement('h3', inst.data.head, 'headline'));
+                if(inst.data.body) textCol.appendChild(createTextElement('p', inst.data.body, 'body-text'));
+
+                const videoCol = el('div', 'image-column'); 
+                const videoContainer = el('div', 'video-container');
+                videoContainer.appendChild(createImageElement(inst.data.thumb, def.images[0].label, 'video-thumbnail', def.images[0].w, def.images[0].h, true, 300));
+                
+                if (inst.data.showVideoTitle && inst.data.vTitle) {
+                    videoContainer.appendChild(createTextElement('h4', inst.data.vTitle, 'video-title'));
+                }
+                if (inst.data.showVideoDesc && inst.data.vDesc) {
+                    videoContainer.appendChild(createTextElement('p', inst.data.vDesc, 'video-description'));
+                }
+                if (inst.data.showVideoUrl && inst.data.video) {
+                    videoContainer.appendChild(createTextElement('p', `URL: ${inst.data.video}`, 'video-url-info'));
+                }
+                videoCol.appendChild(videoContainer);
+                
+                wrapper.append(videoCol, textCol); 
+                box.appendChild(wrapper);
+                break;
+            }
+            case 'PREMIUM_TECHNICAL_SPECIFICATIONS': {
+                if(inst.data.head) box.appendChild(createTextElement('h3', inst.data.head, 'headline module-headline'));
+                const table = el('table', 'specs-table');
+                const tbody = el('tbody');
+                let hasSpecs = false;
+                for (let i = 1; i <= 16; i++) {
+                    if (inst.data[`l${i}`]) {
+                        hasSpecs = true;
+                        const row = el('tr');
+                        const labelCell = el('td', 'spec-label');
+                        labelCell.textContent = inst.data[`l${i}`];
+                        const descCell = el('td', 'spec-description');
+                        descCell.textContent = inst.data[`d${i}`] || '-';
+                        row.append(labelCell, descCell);
+                        tbody.appendChild(row);
+                    }
+                }
+                if (hasSpecs) {
+                    table.appendChild(tbody);
+                    box.appendChild(table);
+                } else {
+                    box.appendChild(createTextElement('p', 'Nessuna specifica inserita.', 'missing-preview'));
+                }
+                break;
+            }
+            default:
+                box.appendChild(createTextElement('p', def.name+' – anteprima non ancora implementata.', 'missing-preview'));
+        }
+        if (!box.hasChildNodes() && !box.classList.contains('missing-preview')) {
+             box.appendChild(createTextElement('p', 'Inserisci contenuto per visualizzare l’anteprima di questo modulo.', 'missing-preview'));
+        }
+        preview.appendChild(box);
+    });
+}
+
+/* ------------------------------------------------------
+    9. EXPORT
+------------------------------------------------------ */
+function exportPreview(format){
+    if(!preview.children.length || (preview.children.length === 1 && preview.firstElementChild.textContent.includes("L’anteprima apparirà qui"))){
+        showMessage('Nessuna anteprima da esportare.');
+        return;
+    }
+    const orig={png:btnPNG.textContent,pdf:btnPDF.textContent};
+    const tgt=format==='png'?btnPNG:btnPDF;
+    tgt.textContent='Esportazione…';tgt.disabled=true;
+
+    const popups = preview.querySelectorAll('.hotspot-popup');
+    const originalDisplays = [];
+    popups.forEach(p => {
+        originalDisplays.push(p.style.display);
+        p.style.display = 'none';
+    });
+
+    html2canvas(preview,{
+        scale:2,
+        useCORS: true,
+        logging: false,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: preview.scrollWidth,
+        windowHeight: preview.scrollHeight
+    }).then(cv=>{
+        if(format==='png'){
+            const a=document.createElement('a');a.download='amazon-a-plus.png';a.href=cv.toDataURL('image/png');a.click();
+        }else{
+            const{jsPDF}=window.jspdf;
+            const imgData = cv.toDataURL('image/png');
+            const pdfDoc = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pdfWidthMM = pdfDoc.internal.pageSize.getWidth();
+            const pdfHeightMM = pdfDoc.internal.pageSize.getHeight();
+            const canvasWidthPX = cv.width;
+            const canvasHeightPX = cv.height;
+            const ratio = canvasWidthPX / pdfWidthMM;
+            
+            if(pdfType.value==='singlepage'){
+                const singlePageHeightMM = canvasHeightPX / ratio;
+                pdfDoc.deletePage(1);
+                pdfDoc.addPage([pdfWidthMM, singlePageHeightMM]);
+                pdfDoc.addImage(imgData, 'PNG', 0, 0, pdfWidthMM, singlePageHeightMM);
+            }else{
+                let yPosPX = 0;
+                let pageNum = 0;
+                while(yPosPX < canvasHeightPX){
+                    if(pageNum > 0) pdfDoc.addPage();
+                    const chunkHeightPX = Math.min(canvasHeightPX - yPosPX, pdfHeightMM * ratio);
+                    
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvasWidthPX;
+                    tempCanvas.height = chunkHeightPX;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCtx.drawImage(cv, 0, yPosPX, canvasWidthPX, chunkHeightPX, 0, 0, canvasWidthPX, chunkHeightPX);
+                    
+                    const chunkImgData = tempCanvas.toDataURL('image/png');
+                    const chunkHeightMM = chunkHeightPX / ratio;
+                    pdfDoc.addImage(chunkImgData, 'PNG', 0, 0, pdfWidthMM, chunkHeightMM);
+                    
+                    yPosPX += chunkHeightPX;
+                    pageNum++;
+                }
+            }
+            pdfDoc.save('amazon-a-plus.pdf');
+        }
+    }).catch(err => {
+        console.error("Errore durante l'esportazione:", err);
+        showMessage("Errore durante l'esportazione. Controlla la console.");
+    }).finally(()=>{
+        tgt.textContent=orig[format];tgt.disabled=false;
+        popups.forEach((p, index) => { p.style.display = originalDisplays[index]; });
+    });
+}
+
+btnPNG.onclick=()=>exportPreview('png');
+btnPDF.onclick=()=>exportPreview('pdf');
+
+maxModulesInput.onchange=updateCounter;
+hotspotMarkerSizeInput.onchange=renderPreview;
+
+updateCounter();
+renderInputs();
+});
+</script>
+</body>
+</html>
+```
+
+Spero che queste modifiche siano un buon passo avanti. Fammi sapere se il comportamento è ora più vicino a quello che ti as
