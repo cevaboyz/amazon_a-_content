@@ -1,1655 +1,205 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulatore Contenuti Amazon A+</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-        /* Reset e Stili Base */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #232f3e; /* Amazon Navy */
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .container {
-            display: flex;
-            flex-grow: 1;
-            flex-wrap: wrap; 
-            padding: 1rem;
-            gap: 1rem; 
-        }
-
-        /* Area Controlli */
-        .controls {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 1; 
-            min-width: 300px; 
-            max-width: 500px; 
-            align-self: flex-start; 
-        }
-
-        .controls h2, .controls h3 {
-            color: #e47911; /* Amazon Orange */
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e47911;
-        }
-        .module-selection-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #selected-modules-count {
-            font-size: 0.9em;
-            font-weight: normal;
-            color: #555;
-            background-color: #f0f2f2;
-            padding: 0.2em 0.6em;
-            border-radius: 4px;
-        }
-
-
-        .controls section {
-            margin-bottom: 1.5rem;
-        }
-
-        #module-list button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 0.5rem;
-            background-color: #f0f2f2; 
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: left;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-        }
-
-        #module-list button:hover {
-            background-color: #e3e6e6;
-        }
-        #module-list button.selected-button { 
-            background-color: #39ff14; 
-            color: #232f3e; 
-            border-color: #2cba0f; 
-            font-weight: bold;
-        }
-
-        .module-input-group {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background-color: #fdfdfd;
-        }
-
-        .module-input-group h4 {
-            margin-bottom: 0.8rem;
-            color: #555;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .module-input-group label {
-            display: block;
-            margin-bottom: 0.3rem;
-            font-weight: bold;
-            color: #444;
-            font-size: 0.9em;
-        }
-
-        .module-input-group input[type="text"],
-        .module-input-group input[type="number"],
-        .module-input-group textarea {
-            width: 100%;
-            padding: 0.6rem;
-            margin-bottom: 0.3rem; 
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-
-        .module-input-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .char-counter {
-            font-size: 0.8em;
-            color: #777;
-            text-align: right;
-            margin-bottom: 0.8rem; 
-        }
-
-        .char-counter.over-limit {
-            color: red;
-            font-weight: bold;
-        }
-
-        .image-upload-area {
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px dashed #ccc;
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
-
-        .image-upload-area input[type="file"] {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .image-preview {
-            max-width: 100px;
-            max-height: 100px;
-            margin-top: 0.5rem;
-            display: block;
-            border: 1px solid #eee;
-        }
-
-        .remove-module-btn {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8em;
-            float: right; 
-        }
-
-        .remove-module-btn:hover {
-            background-color: #c9302c;
-        }
-        
-        .general-settings div,
-        .export-options, .hotspot-settings {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem; 
-        }
-        .export-options .export-buttons-group {
-            display: flex;
-            flex-wrap: wrap; 
-            gap: 0.5rem; 
-        }
-
-        .export-options button {
-            padding: 0.8rem 1.5rem;
-            background-color: #e47911; 
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s ease;
-            flex-grow: 1; 
-        }
-
-        .export-options button:hover {
-            background-color: #cc6a0e;
-        }
-        .general-settings-item,
-        .export-pdf-settings, 
-        .hotspot-settings div { 
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9em;
-            margin-top: 0.5rem; 
-        }
-        .general-settings input[type="number"],
-        .hotspot-settings input[type="number"] {
-            width: 70px; 
-            padding: 0.4rem;
-        }
-
-
-        .preview-area {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 2; 
-            min-width: 320px; 
-        }
-
-        .preview-area h2 {
-             color: #232f3e; 
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #232f3e;
-        }
-
-        #preview-container {
-            border: 1px solid #eee;
-            min-height: 400px; 
-            padding: 10px; 
-            background-color: #ffffff; 
-        }
-
-        .preview-module {
-            margin-bottom: 15px; 
-            border: 1px solid #eee; 
-            padding: 15px;
-            overflow: hidden; 
-            background-color: #fff;
-            position: relative; 
-        }
-        .preview-module .main-hotspot-image-container { 
-            position: relative; 
-            display: inline-block; 
-            line-height: 0; 
-        }
-
-
-        .preview-module img {
-            max-width: 100%; 
-            height: auto;
-            display: block; 
-            margin-bottom: 10px;
-        }
-
-        .preview-module h3, .preview-module h4 {
-            color: #0F1111; 
-            margin-bottom: 5px;
-            font-weight: bold; 
-        }
-        .preview-module p, .preview-module ul, .preview-module ol {
-            color: #0F1111;
-            margin-bottom: 10px;
-            font-size: 14px; 
-        }
-        .preview-module ul, .preview-module ol {
-            margin-left: 20px;
-        }
-
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-left,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT { 
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: flex-start;
-        }
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-left .image-container,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT .image-container {
-            flex: 1;
-            min-width: 200px;
-            max-width: 45%;
-        }
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-left .text-container,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT .text-container {
-            flex: 2;
-            min-width: 250px;
-        }
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-left img,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT img {
-             margin-bottom: 0;
-        }
-
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-right,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT {
-            display: flex;
-            flex-wrap: wrap-reverse; 
-            gap: 15px;
-            align-items: flex-start;
-        }
-         .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-right .image-container,
-         .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT .image-container {
-            flex: 1;
-            min-width: 200px;
-            max-width: 45%;
-        }
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-right .text-container,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT .text-container {
-            flex: 2;
-            min-width: 250px;
-        }
-        .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-right img,
-        .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT img {
-             margin-bottom: 0;
-        }
-
-        /* Stili Hotspot */
-        .hotspot-marker {
-            position: absolute;
-            width: 25px; 
-            height: 25px; 
-            background-color: rgba(255, 0, 0, 0.7); 
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px; 
-            font-weight: bold;
-            cursor: pointer;
-            border: 1px solid white;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
-            z-index: 10;
-            transition: transform 0.2s ease-in-out;
-        }
-        .hotspot-marker:hover {
-            transform: scale(1.1);
-        }
-        .hotspot-text-popup {
-            position: absolute; 
-            background-color: rgba(0, 0, 0, 0.9); 
-            color: white;
-            padding: 12px 15px; 
-            border-radius: 6px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
-            z-index: 20;
-            width: 240px; 
-            font-size: 0.95em; 
-            display: none; 
-        }
-         .hotspot-text-popup h5 { 
-             color: #fff; 
-             margin-top: 0; 
-             margin-bottom: 8px; 
-             font-size: 1.05em; 
-             border-bottom: 1px solid #666; 
-             padding-bottom: 6px; 
-         }
-         .hotspot-text-popup p { 
-             color: #e0e0e0; 
-             margin-bottom: 0; 
-             font-size: 0.9em;
-             line-height: 1.5; 
-         }
-
-
-        footer {
-            text-align: center;
-            padding: 1rem;
-            margin-top: 1rem;
-            background-color: #e3e6e6;
-            color: #555;
-            font-size: 0.9em;
-        }
-        footer a {
-            color: #e47911; 
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column; 
-            }
-            .controls {
-                max-width: 100%; 
-                margin-bottom: 1rem;
-            }
-            .preview-area {
-               flex: 1; 
-            }
-            .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-left,
-            .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT,
-            .preview-PREMIUM_SINGLE_IMAGE_TEXT.image-right,
-            .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT {
-                flex-direction: column; 
-            }
-            .preview-PREMIUM_SINGLE_IMAGE_TEXT .image-container, 
-            .preview-STANDARD_SINGLE_SIDE_IMAGE_LEFT .image-container,
-            .preview-STANDARD_SINGLE_SIDE_IMAGE_RIGHT .image-container {
-                max-width: 100%; 
-                margin-bottom: 15px;
-            }
-        }
-
-        .preview-PREMIUM_TEXT .headline,
-        .preview-STANDARD_TEXT .headline {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-         .preview-PREMIUM_TEXT .body,
-         .preview-STANDARD_TEXT .body {
-             font-size: 1em;
-         }
-
-        .preview-PREMIUM_FULL_IMAGE img {
-            width: 100%;
-            max-width: 970px; 
-            margin: 0 auto 10px auto;
-        }
-         .preview-PREMIUM_FULL_IMAGE .headline {
-            font-size: 1.8em; text-align: center; margin-bottom: 10px;
-        }
-        .preview-PREMIUM_FULL_IMAGE .body {
-            text-align: center;
-        }
-
-
-        .preview-PREMIUM_BACKGROUND_IMAGE_TEXT,
-        .preview-STANDARD_IMAGE_TEXT_OVERLAY { 
-            position: relative;
-            text-align: left;
-        }
-        .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .image-container img, 
-        .preview-STANDARD_IMAGE_TEXT_OVERLAY img {
-            display: block;
-            width: 100%;
-            max-width: 970px;
-            margin: 0 auto;
-            margin-bottom: 0;
-        }
-        .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay-content,
-        .preview-STANDARD_IMAGE_TEXT_OVERLAY .text-overlay-content {
-            position: absolute;
-            bottom: 20px;
-            left: 20px; 
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            max-width: 40%;
-        }
-         .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay-content h3, 
-         .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay-content h4, 
-         .preview-STANDARD_IMAGE_TEXT_OVERLAY .text-overlay-content h3 {
-             color: white;
-             font-size: 1.2em;
-             margin-bottom: 5px;
-         }
-         .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay-content p, 
-         .preview-STANDARD_IMAGE_TEXT_OVERLAY .text-overlay-content p {
-             color: white;
-             font-size: 0.9em;
-             margin-bottom: 0;
-         }
-         @media (max-width: 600px) {
-             .preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay-content,
-             .preview-STANDARD_IMAGE_TEXT_OVERLAY .text-overlay-content {
-                 position: relative; bottom: auto; left: auto; right: auto;
-                 max-width: 100%; border-radius: 0; margin-top: -5px;
-                 background-color: #333;
-             }
-         }
-
-        .preview-PREMIUM_FOUR_IMAGES_TEXT,
-        .preview-STANDARD_FOUR_IMAGE_TEXT {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: space-between;
-            text-align: center; 
-        }
-         .preview-PREMIUM_FOUR_IMAGES_TEXT .module-subheadline, 
-         .preview-STANDARD_FOUR_IMAGE_TEXT .headline { 
-            width: 100%;
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-        .preview-PREMIUM_FOUR_IMAGES_TEXT .block,
-        .preview-STANDARD_FOUR_IMAGE_TEXT .block {
-            flex: 1;
-            min-width: 150px; 
-            max-width: 23%; 
-        }
-         .preview-PREMIUM_FOUR_IMAGES_TEXT .block img,
-         .preview-STANDARD_FOUR_IMAGE_TEXT .block img {
-             margin-left: auto;
-             margin-right: auto;
-         }
-         .preview-PREMIUM_FOUR_IMAGES_TEXT .block .block-text { 
-            font-size: 0.9em;
-         }
-
-
-        .preview-PREMIUM_DUAL_IMAGES_TEXT {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: space-around; 
-            text-align: center;
-        }
-        .preview-PREMIUM_DUAL_IMAGES_TEXT .module-subheadline {
-            width: 100%;
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-        .preview-PREMIUM_DUAL_IMAGES_TEXT .block {
-            flex: 1;
-            min-width: 250px; 
-            max-width: 48%; 
-        }
-        .preview-PREMIUM_DUAL_IMAGES_TEXT .block img {
-             margin-left: auto;
-             margin-right: auto;
-         }
-        .preview-PREMIUM_DUAL_IMAGES_TEXT .block .block-text {
-            font-size: 0.9em;
-        }
-
-        .preview-PREMIUM_FULL_VIDEO .video-thumbnail-container img,
-        .preview-PREMIUM_VIDEO_TEXT .video-thumbnail-container img {
-            border: 2px dashed #ccc;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #777;
-        }
-         .preview-PREMIUM_FULL_VIDEO .video-details,
-         .preview-PREMIUM_VIDEO_TEXT .video-details {
-            font-size: 0.9em; color: #555; margin-top: 5px;
-            border: 1px solid #eee; padding: 5px; border-radius: 3px;
-         }
-
-        .preview-PREMIUM_Q_A .qa-pair {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px dotted #eee;
-        }
-        .preview-PREMIUM_Q_A .qa-pair:last-child {
-            border-bottom: none;
-        }
-        .preview-PREMIUM_Q_A .question {
-            font-weight: bold;
-        }
-        .preview-PREMIUM_Q_A .answer {
-            padding-left: 15px;
-        }
-
-        .preview-PREMIUM_TECHNICAL_SPECIFICATIONS .tech-spec-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-         .preview-PREMIUM_TECHNICAL_SPECIFICATIONS .tech-spec-item:last-child {
-            border-bottom: none;
-        }
-        .preview-PREMIUM_TECHNICAL_SPECIFICATIONS .spec-label {
-            font-weight: bold;
-            flex-basis: 30%;
-        }
-        .preview-PREMIUM_TECHNICAL_SPECIFICATIONS .spec-definition {
-            flex-basis: 68%;
-            text-align: left;
-        }
-
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Simulatore Contenuti Amazon A+</h1>
-    </header>
-
-    <div class="container">
-        <aside class="controls">
-            <h2>Controlli</h2>
-            
-            <section class="general-settings">
-                <h3>Impostazioni Generali</h3>
-                <div class="general-settings-item">
-                    <label for="max-selected-modules-input">Max Moduli Selezionabili:</label>
-                    <input type="number" id="max-selected-modules-input" value="7" min="1" max="20"> 
-                </div>
-            </section>
-
-            <section class="module-selection">
-                <div class="module-selection-header">
-                    <h3>1. Seleziona Moduli</h3>
-                    <span id="selected-modules-count">Selezionati: 0</span>
-                </div>
-                <div id="module-list">
-                    <p>Caricamento moduli...</p>
-                </div>
-            </section>
-
-            <section class="hotspot-settings">
-                <h3>Impostazioni Hotspot</h3>
-                <div>
-                    <label for="hotspot-marker-size">Dimensione Marker (px):</label>
-                    <input type="number" id="hotspot-marker-size" value="25" min="10" max="50">
-                </div>
-            </section>
-
-            <section class="module-inputs">
-                <h3>2. Inserisci Contenuti</h3>
-                <div id="selected-modules-inputs">
-                    <p>Nessun modulo selezionato. Aggiungine uno dalla lista sopra.</p>
-                </div>
-            </section>
-
-             <section class="export-options">
-                <h3>3. Esporta Anteprima</h3>
-                <div class="export-pdf-settings">
-                    <label for="pdf-export-type">Tipo PDF:</label>
-                    <select id="pdf-export-type">
-                        <option value="multipage" selected>Multi-pagina (A4)</option>
-                        <option value="singlepage">Pagina Singola Lunga</option>
-                    </select>
-                </div>
-                <div class="export-buttons-group">
-                    <button id="export-png-button">Esporta come PNG</button>
-                    <button id="export-pdf-button">Esporta come PDF</button>
-                </div>
-            </section>
-
-        </aside>
-
-        <main class="preview-area">
-            <h2>Anteprima Live</h2>
-            <div id="preview-container" class="amazon-a-plus-preview">
-                <p>L'anteprima apparirà qui.</p>
-            </div>
-        </main>
-    </div>
-
-    <footer>
-        <p>Creato da <a href="https://andreacastagna.info/" target="_blank" rel="noopener noreferrer">Andrea Castagna + Gemini</a></p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleListContainer = document.getElementById('module-list');
-            const selectedModulesInputsContainer = document.getElementById('selected-modules-inputs');
-            const previewContainer = document.getElementById('preview-container');
-            const exportPngButton = document.getElementById('export-png-button');
-            const exportPdfButton = document.getElementById('export-pdf-button');
-            const selectedModulesCountElement = document.getElementById('selected-modules-count');
-            const pdfExportTypeSelect = document.getElementById('pdf-export-type');
-            const hotspotMarkerSizeInput = document.getElementById('hotspot-marker-size');
-            const maxSelectedModulesInput = document.getElementById('max-selected-modules-input');
-
-
-            let availableModules = [];
-            let selectedModules = [];
-            let nextModuleInstanceId = 0;
-            let currentHotspotMarkerSize = 25; 
-            let currentMaxSelectedModules = 7; 
-
-            // Definizioni dei moduli Premium hardcoded
-            const hardcodedModules = [
-                {
-                    'ID Modulo': 'PREMIUM_FULL_IMAGE',
-                    'Nome Modulo Visualizzato': 'Premium Full Image',
-                    textFields: [
-                        { id: 'text1', label: 'Headline', maxLength: 80 },
-                        { id: 'text2', label: 'Body', maxLength: 300 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Full Image', recommendedWidth: 970, recommendedHeight: 600, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Text',
-                    textFields: [
-                        { id: 'text1', label: 'Headline', maxLength: 80 },
-                        { id: 'text2', label: 'Body', maxLength: 300 }
-                    ],
-                    imageFields: []
-                },
-                {
-                    'ID Modulo': 'PREMIUM_BACKGROUND_IMAGE_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Background Image with Text',
-                    textFields: [
-                        { id: 'text1', label: 'Subheadline (Overlay)', maxLength: 40 },
-                        { id: 'text2', label: 'Headline (Overlay)', maxLength: 60 },
-                        { id: 'text3', label: 'Body (Overlay)', maxLength: 300 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Background Image', recommendedWidth: 970, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_FOUR_IMAGES_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Four Images & Text',
-                    textFields: [
-                        { id: 'text1', label: 'Module Subheadline', maxLength: 80 },
-                        { id: 'text2', label: 'Block 1 Headline', maxLength: 30 },
-                        { id: 'text3', label: 'Block 1 Body', maxLength: 150 },
-                        { id: 'text4', label: 'Block 2 Headline', maxLength: 30 },
-                        { id: 'text5', label: 'Block 2 Body', maxLength: 150 },
-                        { id: 'text6', label: 'Block 3 Headline', maxLength: 30 },
-                        { id: 'text7', label: 'Block 3 Body', maxLength: 150 },
-                        { id: 'text8', label: 'Block 4 Headline', maxLength: 30 },
-                        { id: 'text9', label: 'Block 4 Body', maxLength: 150 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Block 1 Image', recommendedWidth: 220, recommendedHeight: 220, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image2', label: 'Block 2 Image', recommendedWidth: 220, recommendedHeight: 220, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image3', label: 'Block 3 Image', recommendedWidth: 220, recommendedHeight: 220, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image4', label: 'Block 4 Image', recommendedWidth: 220, recommendedHeight: 220, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_DUAL_IMAGES_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Dual Images & Text',
-                    textFields: [
-                        { id: 'text1', label: 'Module Subheadline', maxLength: 50 },
-                        { id: 'text2', label: 'Block 1 Headline', maxLength: 50 },
-                        { id: 'text3', label: 'Block 1 Body', maxLength: 300 },
-                        { id: 'text4', label: 'Block 2 Headline', maxLength: 50 },
-                        { id: 'text5', label: 'Block 2 Body', maxLength: 300 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Block 1 Image', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image2', label: 'Block 2 Image', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_SINGLE_IMAGE_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Single Image with Text',
-                    textFields: [
-                        { id: 'text1', label: 'Subheadline', maxLength: 40 },
-                        { id: 'text2', label: 'Headline', maxLength: 80 },
-                        { id: 'text3', label: 'Body', maxLength: 500 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Single Image', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_FULL_VIDEO',
-                    'Nome Modulo Visualizzato': 'Premium Full Video',
-                    textFields: [
-                        { id: 'text1', label: 'Headline', maxLength: 80 },
-                        { id: 'text2', label: 'Body', maxLength: 300 },
-                        { id: 'text3', label: 'Video URL/Embed Code', maxLength: 1000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Video Thumbnail', recommendedWidth: 970, recommendedHeight: 545, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_VIDEO_TEXT',
-                    'Nome Modulo Visualizzato': 'Premium Video with Text',
-                    textFields: [
-                        { id: 'text1', label: 'Subheadline', maxLength: 40 },
-                        { id: 'text2', label: 'Headline', maxLength: 80 },
-                        { id: 'text3', label: 'Body', maxLength: 500 },
-                        { id: 'text4', label: 'Video Title', maxLength: 50 },
-                        { id: 'text5', label: 'Video Description', maxLength: 200 },
-                        { id: 'text6', label: 'Video URL/Embed Code', maxLength: 1000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Video Thumbnail', recommendedWidth: 480, recommendedHeight: 270, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_COMPARISON_TABLE_1',
-                    'Nome Modulo Visualizzato': 'Premium Comparison Table 1',
-                    textFields: [
-                        { id: 'text1', label: 'Module Headline (max 80)', maxLength: 80 },
-                        { id: 'text2', label: 'Image Headline (guideline, max 25)', maxLength: 25 },
-                        { id: 'text3', label: 'Feature (guideline, max 30)', maxLength: 30 },
-                        { id: 'text4', label: 'Tooltip (guideline, max 150)', maxLength: 150 },
-                        { id: 'text5', label: 'Detail (guideline, max 30)', maxLength: 30 },
-                        { id: 'text6', label: 'Notes for Table Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                         { id: 'image1', label: 'Example Product Image in Table', recommendedWidth: 150, recommendedHeight: 150, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_COMPARISON_TABLE_2',
-                    'Nome Modulo Visualizzato': 'Premium Comparison Table 2',
-                    textFields: [
-                        { id: 'text1', label: 'Module Headline (max 80)', maxLength: 80 },
-                        { id: 'text2', label: 'Image Headline (guideline, max 30)', maxLength: 30 },
-                        { id: 'text3', label: 'Feature (guideline, max 30)', maxLength: 30 },
-                        { id: 'text4', label: 'Body Text (guideline, max 80)', maxLength: 80 },
-                        { id: 'text5', label: 'Notes for Table Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Example Product Image in Table', recommendedWidth: 150, recommendedHeight: 150, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_COMPARISON_TABLE_3',
-                    'Nome Modulo Visualizzato': 'Premium Comparison Table 3 (Chart)',
-                    textFields: [
-                        { id: 'text1', label: 'Chart Headline (guideline, max 25)', maxLength: 25 },
-                        { id: 'text2', label: 'Image Headline (guideline, max 25)', maxLength: 25 },
-                        { id: 'text3', label: 'Feature (guideline, max 20)', maxLength: 20 },
-                        { id: 'text4', label: 'Feature Text (guideline, max 20)', maxLength: 20 },
-                        { id: 'text5', label: 'Notes for Table/Chart Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Example Image in Table/Chart', recommendedWidth: 150, recommendedHeight: 150, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                { 
-                    'ID Modulo': 'PREMIUM_HOTSPOTS_1',
-                    'Nome Modulo Visualizzato': 'Premium Hotspots 1',
-                    textFields: [ 
-                        { id: 'module_headline', label: 'Module Main Headline (Optional)', maxLength: 80 },
-                        { id: 'hotspot1_headline', label: 'Hotspot 1 Headline', maxLength: 50 },
-                        { id: 'hotspot1_body', label: 'Hotspot 1 Body Text', maxLength: 200 },
-                        { id: 'hotspot2_headline', label: 'Hotspot 2 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot2_body', label: 'Hotspot 2 Body Text (Optional)', maxLength: 200 },
-                        { id: 'hotspot3_headline', label: 'Hotspot 3 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot3_body', label: 'Hotspot 3 Body Text (Optional)', maxLength: 200 },
-                        { id: 'hotspot4_headline', label: 'Hotspot 4 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot4_body', label: 'Hotspot 4 Body Text (Optional)', maxLength: 200 },
-                        { id: 'hotspot5_headline', label: 'Hotspot 5 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot5_body', label: 'Hotspot 5 Body Text (Optional)', maxLength: 200 },
-                        { id: 'hotspot6_headline', label: 'Hotspot 6 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot6_body', label: 'Hotspot 6 Body Text (Optional)', maxLength: 200 },
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Main Hotspot Image', recommendedWidth: 970, recommendedHeight: 450, altTextRequired: true, altTextMaxLength: 100 }
-                    ],
-                    maxHotspots: 6 
-                },
-                { 
-                    'ID Modulo': 'PREMIUM_HOTSPOTS_2',
-                    'Nome Modulo Visualizzato': 'Premium Hotspots 2',
-                    textFields: [
-                        { id: 'module_headline', label: 'Module Headline', maxLength: 80 },
-                        { id: 'module_body', label: 'Module Body Text', maxLength: 300 },
-                        { id: 'hotspot1_headline', label: 'Hotspot 1 Headline', maxLength: 50 },
-                        { id: 'hotspot1_body', label: 'Hotspot 1 Body (Optional)', maxLength: 200 },
-                        { id: 'hotspot2_headline', label: 'Hotspot 2 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot2_body', label: 'Hotspot 2 Body (Optional)', maxLength: 200 },
-                        { id: 'hotspot3_headline', label: 'Hotspot 3 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot3_body', label: 'Hotspot 3 Body (Optional)', maxLength: 200 },
-                        { id: 'hotspot4_headline', label: 'Hotspot 4 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot4_body', label: 'Hotspot 4 Body (Optional)', maxLength: 200 },
-                        { id: 'hotspot5_headline', label: 'Hotspot 5 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot5_body', label: 'Hotspot 5 Body (Optional)', maxLength: 200 },
-                        { id: 'hotspot6_headline', label: 'Hotspot 6 Headline (Optional)', maxLength: 50 },
-                        { id: 'hotspot6_body', label: 'Hotspot 6 Body (Optional)', maxLength: 200 },
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Main Hotspot Image', recommendedWidth: 970, recommendedHeight: 450, altTextRequired: true, altTextMaxLength: 100 }
-                    ],
-                    maxHotspots: 6 
-                },
-                {
-                    'ID Modulo': 'PREMIUM_NAVIGATION_CAROUSEL',
-                    'Nome Modulo Visualizzato': 'Premium Navigation Carousel',
-                    textFields: [
-                        { id: 'text1', label: 'Navigation Text (guideline, max 25)', maxLength: 25 },
-                        { id: 'text2', label: 'Subheadline (guideline, max 25)', maxLength: 25 },
-                        { id: 'text3', label: 'Headline (guideline, max 25)', maxLength: 25 },
-                        { id: 'text4', label: 'Body Text (guideline, max 100)', maxLength: 100 },
-                        { id: 'text5', label: 'Notes for Carousel Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Example Carousel Image', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_REGIMEN_CAROUSEL',
-                    'Nome Modulo Visualizzato': 'Premium Regimen Carousel',
-                    textFields: [
-                        { id: 'text1', label: 'Module Headline (max 100)', maxLength: 100 },
-                        { id: 'text2', label: 'Inset Headline Text (guideline, max 20)', maxLength: 20 },
-                        { id: 'text3', label: 'Inset Body Text (guideline, max 100)', maxLength: 100 },
-                        { id: 'text4', label: 'Navigation Text (guideline, max 20)', maxLength: 20 },
-                        { id: 'text5', label: 'Notes for Carousel Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Example Carousel Image', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_SIMPLE_IMAGE_CAROUSEL',
-                    'Nome Modulo Visualizzato': 'Premium Simple Image Carousel',
-                    textFields: [
-                        { id: 'text1', label: 'Headline Text (max 50)', maxLength: 50 },
-                        { id: 'text2', label: 'Body Text (max 200)', maxLength: 200 },
-                        { id: 'text3', label: 'Notes for Carousel Content', maxLength: 2000 }
-                    ],
-                    imageFields: [ 
-                        { id: 'image1', label: 'Carousel Image 1', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image2', label: 'Carousel Image 2', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 },
-                        { id: 'image3', label: 'Carousel Image 3', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_VIDEO_IMAGE_CAROUSEL',
-                    'Nome Modulo Visualizzato': 'Premium Video Image Carousel',
-                    textFields: [
-                        { id: 'text1', label: 'Panel Headline (max 50)', maxLength: 50 },
-                        { id: 'text2', label: 'Panel Subheadline (max 80)', maxLength: 80 },
-                        { id: 'text3', label: 'Panel Body Text (max 500)', maxLength: 500 },
-                        { id: 'text4', label: 'Video Title (max 50)', maxLength: 50 },
-                        { id: 'text5', label: 'Video Description (max 200)', maxLength: 200 },
-                        { id: 'text6', label: 'Notes for Carousel (Video/Image) Content', maxLength: 2000 }
-                    ],
-                    imageFields: [
-                        { id: 'image1', label: 'Carousel Item 1 (Image/Video Thumbnail)', recommendedWidth: 300, recommendedHeight: 300, altTextRequired: true, altTextMaxLength: 100 }
-                    ]
-                },
-                {
-                    'ID Modulo': 'PREMIUM_Q_A',
-                    'Nome Modulo Visualizzato': 'Premium Q&A',
-                    textFields: [
-                        { id: 'text1', label: 'Question 1 (max 120)', maxLength: 120 },
-                        { id: 'text2', label: 'Answer 1 (max 250)', maxLength: 250 },
-                        { id: 'text3', label: 'Question 2 (Optional, max 120)', maxLength: 120 },
-                        { id: 'text4', label: 'Answer 2 (Optional, max 250)', maxLength: 250 },
-                        { id: 'text5', label: 'Question 3 (Optional, max 120)', maxLength: 120 },
-                        { id: 'text6', label: 'Answer 3 (Optional, max 250)', maxLength: 250 }
-                    ],
-                    imageFields: []
-                },
-                {
-                    'ID Modulo': 'PREMIUM_TECHNICAL_SPECIFICATIONS',
-                    'Nome Modulo Visualizzato': 'Premium Technical Specifications',
-                    textFields: [
-                        { id: 'text1', label: 'Headline (max 80)', maxLength: 80 },
-                        { id: 'text2', label: 'Specification 1 Label (max 30)', maxLength: 30 },
-                        { id: 'text3', label: 'Specification 1 Definition (max 500)', maxLength: 500 },
-                        { id: 'text4', label: 'Specification 2 Label (max 30)', maxLength: 30 },
-                        { id: 'text5', label: 'Specification 2 Definition (max 500)', maxLength: 500 },
-                        { id: 'text6', label: 'Specification 3 Label (Optional, max 30)', maxLength: 30 },
-                        { id: 'text7', label: 'Specification 3 Definition (Optional, max 500)', maxLength: 500 },
-                        { id: 'text8', label: 'Specification 4 Label (Optional, max 30)', maxLength: 30 },
-                        { id: 'text9', label: 'Specification 4 Definition (Optional, max 500)', maxLength: 500 },
-                        { id: 'text10', label: 'Specification 5 Label (Optional, max 30)', maxLength: 30 },
-                        { id: 'text11', label: 'Specification 5 Definition (Optional, max 500)', maxLength: 500 },
-                    ],
-                    imageFields: []
-                }
-            ];
-
-            hotspotMarkerSizeInput.addEventListener('change', (e) => {
-                const newSize = parseInt(e.target.value, 10);
-                if (!isNaN(newSize) && newSize >= 10 && newSize <= 50) {
-                    currentHotspotMarkerSize = newSize;
-                    renderPreview(); 
-                } else {
-                    e.target.value = currentHotspotMarkerSize; 
-                }
-            });
-            
-            maxSelectedModulesInput.addEventListener('change', (e) => {
-                const newMax = parseInt(e.target.value, 10);
-                if (!isNaN(newMax) && newMax >=1) {
-                    currentMaxSelectedModules = newMax;
-                     updateSelectedModulesCount(); 
-                } else {
-                    e.target.value = currentMaxSelectedModules; 
-                }
-            });
-
-
-            function loadModules() {
-                availableModules = hardcodedModules;
-                if (availableModules.length > 0) {
-                    renderModuleSelectionList();
-                } else {
-                    moduleListContainer.innerHTML = '<p>Nessun modulo Premium definito nel codice.</p>';
-                }
-                currentMaxSelectedModules = parseInt(maxSelectedModulesInput.value, 10) || 7;
-                updateSelectedModulesCount();
-            }
-
-            function updateSelectedModulesCount() {
-                selectedModulesCountElement.textContent = `Selezionati: ${selectedModules.length} / ${currentMaxSelectedModules}`;
-            }
-
-            function renderModuleSelectionList() {
-                moduleListContainer.innerHTML = ''; 
-                availableModules.forEach(module => {
-                    const button = document.createElement('button');
-                    button.textContent = module['Nome Modulo Visualizzato'];
-                    button.dataset.moduleId = module['ID Modulo'];
-                    button.title = `Aggiungi modulo: ${module['Nome Modulo Visualizzato']}`;
-                    
-                    button.addEventListener('click', () => {
-                        addModule(module['ID Modulo']);
-                         document.querySelectorAll('#module-list button').forEach(btn => {
-                            const modId = btn.dataset.moduleId;
-                            if (selectedModules.some(sm => sm.type === modId)) {
-                                btn.classList.add('selected-button');
-                            } else {
-                                btn.classList.remove('selected-button');
-                            }
-                        });
-                    });
-                    moduleListContainer.appendChild(button);
-                });
-            }
-
-            function renderSelectedModulesInputs() {
-                selectedModulesInputsContainer.innerHTML = '';
-                if (selectedModules.length === 0) {
-                     selectedModulesInputsContainer.innerHTML = '<p>Nessun modulo selezionato. Aggiungine uno dalla lista sopra.</p>';
-                     renderPreview();
-                     updateSelectedModulesCount();
-                     document.querySelectorAll('#module-list button').forEach(btn => btn.classList.remove('selected-button'));
-                     return;
-                }
-
-                selectedModules.forEach((selectedModule) => {
-                    const moduleDefinition = availableModules.find(m => m['ID Modulo'] === selectedModule.type);
-                    if (!moduleDefinition) return;
-
-                    const groupDiv = document.createElement('div');
-                    groupDiv.classList.add('module-input-group');
-                    groupDiv.dataset.instanceId = selectedModule.id;
-
-                    const title = document.createElement('h4');
-                    title.textContent = moduleDefinition['Nome Modulo Visualizzato'];
-
-                    const removeBtn = document.createElement('button');
-                    removeBtn.textContent = 'Rimuovi';
-                    removeBtn.classList.add('remove-module-btn');
-                    removeBtn.title = 'Rimuovi questo modulo';
-                    removeBtn.addEventListener('click', () => {
-                        removeModule(selectedModule.id);
-                        const buttonInList = document.querySelector(`#module-list button[data-module-id="${selectedModule.type}"]`);
-                        if (buttonInList && !selectedModules.some(sm => sm.type === selectedModule.type)) {
-                            buttonInList.classList.remove('selected-button');
-                        }
-                    });
-                    title.appendChild(removeBtn);
-                    groupDiv.appendChild(title);
-
-                    moduleDefinition.textFields.forEach(field => {
-                        const label = document.createElement('label');
-                        label.textContent = `${field.label}${field.maxLength ? ` (Max ${field.maxLength} caratteri)` : ''}:`;
-                        label.htmlFor = `module-${selectedModule.id}-${field.id}`;
-                        groupDiv.appendChild(label);
-
-                        const inputElement = document.createElement(field.maxLength && field.maxLength > 150 && field.label.toLowerCase().includes('body') ? 'textarea' : 'input');
-                        inputElement.type = 'text';
-                        inputElement.id = `module-${selectedModule.id}-${field.id}`;
-                        inputElement.dataset.fieldId = field.id;
-                        inputElement.placeholder = `Inserisci ${field.label}...`;
-                        if(selectedModule.data[field.id]) {
-                            inputElement.value = selectedModule.data[field.id];
-                        }
-                        groupDiv.appendChild(inputElement);
-
-                        const counter = document.createElement('div');
-                        counter.classList.add('char-counter');
-                        counter.id = `counter-${selectedModule.id}-${field.id}`;
-                        groupDiv.appendChild(counter);
-
-                        inputElement.addEventListener('input', (e) => {
-                            handleTextInput(selectedModule.id, field.id, e.target.value, field.maxLength, counter);
-                        });
-                        updateCharCounter(inputElement.value.length, field.maxLength, counter);
-                    });
-
-                     moduleDefinition.imageFields.forEach(field => {
-                         const imgArea = document.createElement('div');
-                         imgArea.classList.add('image-upload-area');
-                         const label = document.createElement('label');
-                         label.textContent = `${field.label}${field.recommendedWidth && field.recommendedHeight ? ` (Consigliato ${field.recommendedWidth}x${field.recommendedHeight}px)` : ''}:`;
-                         label.htmlFor = `image-input-${selectedModule.id}-${field.id}`;
-                         imgArea.appendChild(label);
-
-                         const fileInput = document.createElement('input');
-                         fileInput.type = 'file';
-                         fileInput.id = `image-input-${selectedModule.id}-${field.id}`;
-                         fileInput.accept = 'image/png, image/jpeg, image/gif';
-                         fileInput.dataset.fieldId = field.id;
-                         imgArea.appendChild(fileInput);
-
-                         const preview = document.createElement('img');
-                         preview.id = `preview-${selectedModule.id}-${field.id}`;
-                         preview.classList.add('image-preview');
-                         preview.style.display = 'none';
-                         preview.alt = `Anteprima per ${field.label}`;
-                         preview.onerror = function() { this.style.display = 'none'; console.warn(`Impossibile caricare l'anteprima per ${field.label}`); };
-                         if (selectedModule.data[field.id]?.src) {
-                             preview.src = selectedModule.data[field.id].src;
-                             preview.style.display = 'block';
-                         }
-                         imgArea.appendChild(preview);
-
-                         if (field.altTextRequired) {
-                             const altLabel = document.createElement('label');
-                             altLabel.textContent = `Testo alternativo (Obbligatorio, Max ${field.altTextMaxLength} caratteri):`;
-                             altLabel.htmlFor = `alt-input-${selectedModule.id}-${field.id}`;
-                             imgArea.appendChild(altLabel);
-                             const altInput = document.createElement('input');
-                             altInput.type = 'text';
-                             altInput.id = `alt-input-${selectedModule.id}-${field.id}`;
-                             altInput.dataset.fieldId = `${field.id}-alt`;
-                             altInput.maxLength = field.altTextMaxLength;
-                             altInput.placeholder = 'Descrivi l\'immagine...';
-                             altInput.required = true;
-                              if (selectedModule.data[field.id]?.alt) {
-                                 altInput.value = selectedModule.data[field.id].alt;
-                             }
-                             imgArea.appendChild(altInput);
-                              altInput.addEventListener('input', (e) => handleAltTextInput(selectedModule.id, field.id, e.target.value));
-                         }
-                         fileInput.addEventListener('change', (e) => handleImageUpload(e, selectedModule.id, field.id, preview));
-                         groupDiv.appendChild(imgArea);
-                     });
-                    selectedModulesInputsContainer.appendChild(groupDiv);
-                });
-                renderPreview();
-                updateSelectedModulesCount();
-            }
-
-            function renderPreview() {
-                previewContainer.innerHTML = '';
-                if (selectedModules.length === 0) {
-                    previewContainer.innerHTML = '<p>L\'anteprima apparirà qui.</p>';
-                    return;
-                }
-
-                selectedModules.forEach(selectedModule => {
-                    const moduleDefinition = availableModules.find(m => m['ID Modulo'] === selectedModule.type);
-                    if (!moduleDefinition) return;
-
-                    const modulePreviewDiv = document.createElement('div');
-                    modulePreviewDiv.classList.add('preview-module', `preview-${selectedModule.type}`);
-                    modulePreviewDiv.dataset.instanceId = selectedModule.id;
-
-                    function createTextElement(tag, text, className) {
-                        if (!text || String(text).trim() === '') return null;
-                        const elem = document.createElement(tag);
-                        if (className) elem.classList.add(className);
-                        elem.innerHTML = String(text).replace(/\n/g, '<br>');
-                        return elem;
-                    }
-
-                    function createImageElement(imageData, altDefault, className) {
-                        if (!imageData?.src) return null;
-                        const container = document.createElement('div');
-                        container.classList.add('image-container');
-                        if (className) container.classList.add(className);
-                        const img = document.createElement('img');
-                        img.src = imageData.src;
-                        img.alt = imageData.alt || altDefault;
-                        img.onerror = function() { this.alt = 'Immagine non caricata'; this.style.display='none'; };
-                        container.appendChild(img);
-                        return container;
-                    }
-                    
-                    function createHotspot(hotspotData, index, parentImageContainer) {
-                        if (!hotspotData || !hotspotData.headline) return;
-
-                        const marker = document.createElement('div');
-                        marker.classList.add('hotspot-marker');
-                        marker.textContent = index + 1;
-                        marker.style.width = `${currentHotspotMarkerSize}px`;
-                        marker.style.height = `${currentHotspotMarkerSize}px`;
-                        marker.style.fontSize = `${Math.max(10, currentHotspotMarkerSize * 0.5)}px`; 
-                        
-                        const positions = [ 
-                            {top: '15%', left: '15%'}, {top: '15%', left: '80%'}, 
-                            {top: '50%', left: '50%'}, {top: '80%', left: '15%'}, 
-                            {top: '80%', left: '80%'}, {top: '30%', left: '60%'}
-                        ];
-                        const pos = positions[index % positions.length]; 
-                        marker.style.top = pos.top;
-                        marker.style.left = pos.left;
-
-                        const popup = document.createElement('div');
-                        popup.classList.add('hotspot-text-popup');
-                        const hotspotHeadline = createTextElement('h5', hotspotData.headline, 'hotspot-popup-headline');
-                        if (hotspotHeadline) popup.appendChild(hotspotHeadline);
-                        const hotspotBody = createTextElement('p', hotspotData.body, 'hotspot-popup-body');
-                        if (hotspotBody) popup.appendChild(hotspotBody);
-                        
-                        marker.addEventListener('click', (event) => {
-                            event.stopPropagation(); 
-                            const currentlyVisible = popup.style.display === 'block';
-                            document.querySelectorAll('.hotspot-text-popup').forEach(p => p.style.display = 'none');
-                            
-                            if (!currentlyVisible) { 
-                                popup.style.display = 'block';
-                                const markerRect = marker.getBoundingClientRect();
-                                const parentRect = parentImageContainer.getBoundingClientRect();
-                                
-                                let popupLeft = markerRect.left - parentRect.left + markerRect.width + 10;
-                                let popupTop = markerRect.top - parentRect.top;
-
-                                if (popupLeft + popup.offsetWidth > parentImageContainer.offsetWidth) {
-                                    popupLeft = markerRect.left - parentRect.left - popup.offsetWidth - 10;
-                                }
-                                if (popupTop + popup.offsetHeight > parentImageContainer.offsetHeight) {
-                                    popupTop = markerRect.top - parentRect.top - popup.offsetHeight + markerRect.height;
-                                }
-                                if (popupLeft < 0) popupLeft = 5;
-                                if (popupTop < 0) popupTop = 5;
-
-                                popup.style.left = popupLeft + 'px';
-                                popup.style.top = popupTop + 'px';
-                            }
-                        });
-                        
-                        if (parentImageContainer) { 
-                           parentImageContainer.appendChild(marker); 
-                           parentImageContainer.appendChild(popup);  
-                        } else { 
-                            const fallbackHotspotText = document.createElement('div');
-                            if (hotspotHeadline) fallbackHotspotText.appendChild(hotspotHeadline.cloneNode(true));
-                            if (hotspotBody) fallbackHotspotText.appendChild(hotspotBody.cloneNode(true));
-                            if (fallbackHotspotText.hasChildNodes()) modulePreviewDiv.appendChild(fallbackHotspotText);
-                        }
-                    }
-
-                    switch (selectedModule.type) {
-                        case 'PREMIUM_FULL_IMAGE': {
-                            const headline = createTextElement('h3', selectedModule.data['text1'], 'headline');
-                            if (headline) modulePreviewDiv.appendChild(headline);
-                            const img = createImageElement(selectedModule.data['image1'], moduleDefinition.imageFields[0].label);
-                            if (img) modulePreviewDiv.appendChild(img);
-                            const body = createTextElement('p', selectedModule.data['text2'], 'body');
-                            if (body) modulePreviewDiv.appendChild(body);
-                            break;
-                        }
-                        case 'PREMIUM_TEXT': {
-                            const headline = createTextElement('h3', selectedModule.data['text1'], 'headline');
-                            if (headline) modulePreviewDiv.appendChild(headline);
-                            const body = createTextElement('p', selectedModule.data['text2'], 'body');
-                            if (body) modulePreviewDiv.appendChild(body);
-                            break;
-                        }
-                        case 'PREMIUM_BACKGROUND_IMAGE_TEXT': {
-                            const imgContainer = createImageElement(selectedModule.data['image1'], moduleDefinition.imageFields[0].label);
-                            if (imgContainer) modulePreviewDiv.appendChild(imgContainer);
-
-                            const overlayContent = document.createElement('div');
-                            overlayContent.classList.add('text-overlay-content');
-                            const subheadlineOverlay = createTextElement('h3', selectedModule.data['text1'], 'subheadline');
-                            if (subheadlineOverlay) overlayContent.appendChild(subheadlineOverlay);
-                            const headlineOverlay = createTextElement('h4', selectedModule.data['text2'], 'headline');
-                            if (headlineOverlay) overlayContent.appendChild(headlineOverlay);
-                            const bodyOverlay = createTextElement('p', selectedModule.data['text3'], 'body');
-                            if (bodyOverlay) overlayContent.appendChild(bodyOverlay);
-
-                            if (overlayContent.hasChildNodes()) modulePreviewDiv.appendChild(overlayContent);
-                            break;
-                        }
-                        case 'PREMIUM_SINGLE_IMAGE_TEXT': {
-                            modulePreviewDiv.classList.add('image-left'); 
-                            const imgContainer = createImageElement(selectedModule.data['image1'], moduleDefinition.imageFields[0].label);
-                            
-                            const textContainer = document.createElement('div');
-                            textContainer.classList.add('text-container');
-                            const subheadline = createTextElement('h4', selectedModule.data['text1'], 'subheadline');
-                            if(subheadline) textContainer.appendChild(subheadline);
-                            const headline = createTextElement('h3', selectedModule.data['text2'], 'headline');
-                            if(headline) textContainer.appendChild(headline);
-                            const body = createTextElement('p', selectedModule.data['text3'], 'body');
-                            if(body) textContainer.appendChild(body);
-
-                            if (imgContainer) modulePreviewDiv.appendChild(imgContainer);
-                            if (textContainer.hasChildNodes()) modulePreviewDiv.appendChild(textContainer);
-                            break;
-                        }
-                        case 'PREMIUM_FOUR_IMAGES_TEXT': {
-                            const moduleSubheadline = createTextElement('h3', selectedModule.data['text1'], 'module-subheadline');
-                            if (moduleSubheadline) modulePreviewDiv.appendChild(moduleSubheadline);
-                            for (let i = 0; i < 4; i++) {
-                                const block = document.createElement('div');
-                                block.classList.add('block');
-                                const imgBlock = createImageElement(selectedModule.data[`image${i+1}`], moduleDefinition.imageFields[i].label);
-                                if (imgBlock) block.appendChild(imgBlock);
-                                const headlineBlock = createTextElement('h4', selectedModule.data[`text${2 + i*2}`], 'block-headline');
-                                if (headlineBlock) block.appendChild(headlineBlock);
-                                const bodyBlock = createTextElement('p', selectedModule.data[`text${3 + i*2}`], 'block-body');
-                                if (bodyBlock) block.appendChild(bodyBlock);
-                                if (block.hasChildNodes()) modulePreviewDiv.appendChild(block);
-                            }
-                            break;
-                        }
-                         case 'PREMIUM_DUAL_IMAGES_TEXT': {
-                            const moduleSubheadline = createTextElement('h3', selectedModule.data['text1'], 'module-subheadline');
-                            if (moduleSubheadline) modulePreviewDiv.appendChild(moduleSubheadline);
-                            for (let i = 0; i < 2; i++) {
-                                const block = document.createElement('div');
-                                block.classList.add('block');
-                                const imgBlock = createImageElement(selectedModule.data[`image${i+1}`], moduleDefinition.imageFields[i].label);
-                                if (imgBlock) block.appendChild(imgBlock);
-                                const headlineBlock = createTextElement('h4', selectedModule.data[`text${2 + i*2}`], 'block-headline');
-                                if (headlineBlock) block.appendChild(headlineBlock);
-                                const bodyBlock = createTextElement('p', selectedModule.data[`text${3 + i*2}`], 'block-body');
-                                if (bodyBlock) block.appendChild(bodyBlock);
-                                if (block.hasChildNodes()) modulePreviewDiv.appendChild(block);
-                            }
-                            break;
-                        }
-                        case 'PREMIUM_FULL_VIDEO':
-                        case 'PREMIUM_VIDEO_TEXT': {
-                            const thumbContainer = createImageElement(selectedModule.data['image1'], 'Video Thumbnail', 'video-thumbnail-container');
-                            if (thumbContainer) {
-                                const placeholderText = document.createElement('span');
-                                placeholderText.textContent = 'Video Thumbnail Preview';
-                                thumbContainer.appendChild(placeholderText);
-                                modulePreviewDiv.appendChild(thumbContainer);
-                            }
-                            moduleDefinition.textFields.forEach(tf => {
-                                const textVal = selectedModule.data[tf.id];
-                                if (tf.label.toLowerCase().includes('url') || tf.label.toLowerCase().includes('embed')) {
-                                     const videoDetails = createTextElement('div', `Video Details: ${textVal || ''}`, 'video-details');
-                                     if (videoDetails) modulePreviewDiv.appendChild(videoDetails);
-                                } else {
-                                     const elem = createTextElement(tf.label.toLowerCase().includes('headline') ? 'h3' : 'p', textVal, tf.id);
-                                     if (elem) modulePreviewDiv.appendChild(elem);
-                                }
-                            });
-                            break;
-                        }
-                        case 'PREMIUM_HOTSPOTS_1':
-                        case 'PREMIUM_HOTSPOTS_2': {
-                            const moduleHeadline = selectedModule.data['module_headline'];
-                            const moduleBody = selectedModule.data['module_body'];
-
-                            if (moduleHeadline) {
-                                const modHeadlineElem = createTextElement('h3', moduleHeadline, 'module-headline-main');
-                                if (modHeadlineElem) modulePreviewDiv.appendChild(modHeadlineElem);
-                            }
-                            
-                            const mainImgData = selectedModule.data['image1'];
-                            const mainImageContainer = createImageElement(mainImgData, moduleDefinition.imageFields[0].label, 'main-hotspot-image-container');
-                            
-                            if (mainImageContainer) {
-                                modulePreviewDiv.appendChild(mainImageContainer); 
-                                const maxHotspots = moduleDefinition.maxHotspots || 0;
-                                for (let i = 0; i < maxHotspots; i++) {
-                                    const hotspotHeadlineKey = `hotspot${i+1}_headline`;
-                                    const hotspotBodyKey = `hotspot${i+1}_body`;
-                                    if (selectedModule.data[hotspotHeadlineKey]) { 
-                                        createHotspot({ 
-                                            headline: selectedModule.data[hotspotHeadlineKey], 
-                                            body: selectedModule.data[hotspotBodyKey] 
-                                        }, i, mainImageContainer); 
-                                    }
-                                }
-                            }
-                             if (moduleBody) {
-                                const modBodyElem = createTextElement('p', moduleBody, 'module-body-main');
-                                if (modBodyElem) modulePreviewDiv.appendChild(modBodyElem);
-                            }
-                            break;
-                        }
-                         case 'PREMIUM_Q_A': {
-                            for (let i = 1; i <= 3; i++) { 
-                                const qKey = `text${(i-1)*2 + 1}`;
-                                const aKey = `text${(i-1)*2 + 2}`;
-                                if (selectedModule.data[qKey]) {
-                                    const qaPair = document.createElement('div');
-                                    qaPair.classList.add('qa-pair');
-                                    const question = createTextElement('p', `Q: ${selectedModule.data[qKey]}`, 'question');
-                                    if (question) qaPair.appendChild(question);
-                                    const answer = createTextElement('p', `A: ${selectedModule.data[aKey] || ''}`, 'answer');
-                                    if (answer) qaPair.appendChild(answer);
-                                    if (qaPair.hasChildNodes()) modulePreviewDiv.appendChild(qaPair);
-                                }
-                            }
-                            break;
-                        }
-                        case 'PREMIUM_TECHNICAL_SPECIFICATIONS': {
-                            const headline = createTextElement('h3', selectedModule.data['text1'], 'headline');
-                            if(headline) modulePreviewDiv.appendChild(headline);
-                            for (let i = 1; i <= 5; i++) { 
-                                const labelKey = `text${(i-1)*2 + 2}`;
-                                const defKey = `text${(i-1)*2 + 3}`;
-                                if (selectedModule.data[labelKey]) {
-                                    const specItem = document.createElement('div');
-                                    specItem.classList.add('tech-spec-item');
-                                    const specLabel = createTextElement('span', selectedModule.data[labelKey], 'spec-label');
-                                    if (specLabel) specItem.appendChild(specLabel);
-                                    const specDef = createTextElement('span', selectedModule.data[defKey] || '', 'spec-definition');
-                                    if (specDef) specItem.appendChild(specDef);
-                                    if (specItem.hasChildNodes()) modulePreviewDiv.appendChild(specItem);
-                                }
-                            }
-                            break;
-                        }
-                        default: {
-                            const headlineDefault = createTextElement('h3', selectedModule.data['text1'], 'headline');
-                            if(headlineDefault) modulePreviewDiv.appendChild(headlineDefault); 
-
-                            moduleDefinition.textFields.slice(1).forEach(field => { 
-                                const pElem = createTextElement('p', selectedModule.data[field.id], field.id);
-                                if (pElem) modulePreviewDiv.appendChild(pElem);
-                            });
-                            moduleDefinition.imageFields.forEach(field => { 
-                                const imgCont = createImageElement(selectedModule.data[field.id], field.label, field.id);
-                                if (imgCont) modulePreviewDiv.appendChild(imgCont);
-                            });
-                            if (!modulePreviewDiv.hasChildNodes()) {
-                                modulePreviewDiv.innerHTML = `<p><i>Anteprima generica per ${selectedModule.type}. Inserisci contenuto per visualizzare.</i></p>`;
-                            }
-                        }
-                    }
-
-                    if (modulePreviewDiv.hasChildNodes()) { 
-                         previewContainer.appendChild(modulePreviewDiv);
-                    }
-                });
-
-                 if (!previewContainer.hasChildNodes() && selectedModules.length > 0) {
-                     previewContainer.innerHTML = '<p>Inserisci del contenuto nei moduli selezionati per vedere l\'anteprima.</p>';
-                 } else if (selectedModules.length === 0) {
-                      previewContainer.innerHTML = '<p>L\'anteprima apparirà qui.</p>';
-                 }
-            }
-
-            function addModule(moduleId) {
-                currentMaxSelectedModules = parseInt(maxSelectedModulesInput.value, 10) || 7; 
-                if (selectedModules.length >= currentMaxSelectedModules) {
-                    alert(`Limite massimo di ${currentMaxSelectedModules} moduli selezionati raggiunto.`);
-                    return;
-                }
-
-                const moduleDefinition = availableModules.find(m => m['ID Modulo'] === moduleId);
-                if (!moduleDefinition) return;
-                const newModuleInstance = { id: nextModuleInstanceId++, type: moduleId, data: {} };
-                selectedModules.push(newModuleInstance);
-                renderSelectedModulesInputs(); 
-                
-                const buttonInList = document.querySelector(`#module-list button[data-module-id="${moduleId}"]`);
-                if (buttonInList) {
-                    buttonInList.classList.add('selected-button');
-                }
-            }
-
-            function removeModule(instanceId) {
-                const moduleToRemove = selectedModules.find(m => m.id === instanceId);
-                if (!moduleToRemove) return;
-                const moduleType = moduleToRemove.type;
-
-                selectedModules = selectedModules.filter(m => m.id !== instanceId);
-                renderSelectedModulesInputs(); 
-
-                const isTypeStillSelected = selectedModules.some(sm => sm.type === moduleType);
-                const buttonInList = document.querySelector(`#module-list button[data-module-id="${moduleType}"]`);
-                if (buttonInList && !isTypeStillSelected) {
-                    buttonInList.classList.remove('selected-button');
-                }
-            }
-
-            function handleTextInput(instanceId, fieldId, value, maxLength, counterElement) {
-               const module = selectedModules.find(m => m.id === instanceId);
-               if (module) {
-                   module.data[fieldId] = value;
-                   renderPreview();
-                   updateCharCounter(value.length, maxLength, counterElement);
-               }
-            }
-
-            function handleAltTextInput(instanceId, imageFieldId, altValue) {
-                const module = selectedModules.find(m => m.id === instanceId);
-                if (module) {
-                    if (!module.data[imageFieldId]) module.data[imageFieldId] = { src: null, alt: '' };
-                    module.data[imageFieldId].alt = altValue;
-                    renderPreview();
-                }
-             }
-
-            function handleImageUpload(event, instanceId, fieldId, previewElement) {
-                const file = event.target.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const imageUrl = e.target.result;
-                        previewElement.src = imageUrl;
-                        previewElement.style.display = 'block';
-                        const module = selectedModules.find(m => m.id === instanceId);
-                        if (module) {
-                             const currentAlt = module.data[fieldId]?.alt || '';
-                             module.data[fieldId] = { src: imageUrl, alt: currentAlt };
-                             renderPreview();
-                         }
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    previewElement.src = '';
-                    previewElement.style.display = 'none';
-                    const module = selectedModules.find(m => m.id === instanceId);
-                    if (module && module.data[fieldId]) {
-                        delete module.data[fieldId];
-                        renderPreview();
-                    }
-                    event.target.value = null;
-                }
-            }
-
-            function updateCharCounter(currentLength, maxLength, counterElement) {
-                if (!maxLength || !counterElement) return;
-                counterElement.textContent = `${currentLength} / ${maxLength}`;
-                counterElement.classList.toggle('over-limit', currentLength > maxLength);
-            }
-
-            function exportPreview(format = 'png') {
-                const previewElement = document.getElementById('preview-container');
-                if (!previewElement || !previewElement.hasChildNodes() || previewElement.textContent.includes('L\'anteprima apparirà qui') || previewElement.textContent.includes('Inserisci del contenuto')) {
-                    alert('Nessun contenuto valido nell\'anteprima da esportare.');
-                    return;
-                }
-
-                const originalPngText = exportPngButton.textContent;
-                const originalPdfText = exportPdfButton.textContent;
-                exportPngButton.textContent = 'Esportazione...'; exportPdfButton.textContent = 'Esportazione...';
-                exportPngButton.disabled = true; exportPdfButton.disabled = true;
-
-                const pdfType = pdfExportTypeSelect.value;
-                let canvasScale = 2; // Default scale
-
-                if (format === 'pdf' && pdfType === 'singlepage') {
-                    canvasScale = 1.5; // Use 1.5 for single-page PDF
-                }
-
-                html2canvas(previewElement, { scale: canvasScale, useCORS: true, logging: false, scrollY: -window.scrollY, windowWidth: previewElement.scrollWidth, windowHeight: previewElement.scrollHeight })
-                .then(canvas => {
-                    if (format === 'png') {
-                        const link = document.createElement('a');
-                        link.download = 'anteprima-a-plus.png';
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                    } else if (format === 'pdf') {
-                        const { jsPDF } = window.jspdf;
-                        const imgData = canvas.toDataURL('image/png');
-                        const imgWidthMM = 210; 
-                        const pageHeightMM = 297; 
-                        
-                        const canvasWidth = canvas.width;
-                        const canvasHeight = canvas.height;
-                        
-                        const ratio = imgWidthMM / canvasWidth;
-                        const scaledCanvasHeightMM = canvasHeight * ratio;
-
-                        let pdf;
-
-                        if (pdfType === 'singlepage') {
-                            pdf = new jsPDF({
-                                orientation: 'p',
-                                unit: 'mm',
-                                format: [imgWidthMM, scaledCanvasHeightMM] 
-                            });
-                            pdf.addImage(imgData, 'PNG', 0, 0, imgWidthMM, scaledCanvasHeightMM, undefined, 'NONE');
-                        } else { 
-                            pdf = new jsPDF({
-                                orientation: 'p',
-                                unit: 'mm',
-                                format: 'a4'
-                            });
-                            let position = 0;
-                            let remainingCanvasHeightPx = canvasHeight; 
-
-                            while (remainingCanvasHeightPx > 0) {
-                                const currentChunkHeightPx = Math.min(remainingCanvasHeightPx, pageHeightMM / ratio);
-                                const currentChunkHeightMM = currentChunkHeightPx * ratio;
-                                
-                                const tempCanvas = document.createElement('canvas');
-                                tempCanvas.width = canvasWidth;
-                                tempCanvas.height = currentChunkHeightPx;
-                                const tempCtx = tempCanvas.getContext('2d');
-                                
-                                const sourceY = canvasHeight - remainingCanvasHeightPx;
-                                tempCtx.drawImage(canvas, 0, sourceY, canvasWidth, currentChunkHeightPx, 0, 0, canvasWidth, currentChunkHeightPx);
-                                
-                                const pageImgData = tempCanvas.toDataURL('image/png');
-                                if (position > 0) { 
-                                    pdf.addPage();
-                                }
-                                pdf.addImage(pageImgData, 'PNG', 0, 0, imgWidthMM, currentChunkHeightMM);
-                                
-                                remainingCanvasHeightPx -= currentChunkHeightPx;
-                                position += currentChunkHeightMM;
-                            }
-                        }
-                        pdf.save('anteprima-a-plus.pdf');
-                    }
-                }).catch(err => {
-                     console.error("Errore durante l'esportazione con html2canvas:", err);
-                     alert("Si è verificato un errore durante l'esportazione. Controlla la console per dettagli.");
-                 }).finally(() => {
-                     exportPngButton.textContent = originalPngText; exportPdfButton.textContent = originalPdfText;
-                     exportPngButton.disabled = false; exportPdfButton.disabled = false;
-                 });
-            }
-            
-            document.addEventListener('click', function(event) {
-                const isMarker = event.target.classList.contains('hotspot-marker');
-                const isPopup = event.target.closest('.hotspot-text-popup');
-
-                if (!isMarker && !isPopup) {
-                    document.querySelectorAll('.hotspot-text-popup').forEach(popup => {
-                        popup.style.display = 'none';
-                    });
-                }
-            });
-
-
-            exportPngButton.addEventListener('click', () => exportPreview('png'));
-            exportPdfButton.addEventListener('click', () => exportPreview('pdf'));
-
-            loadModules(); 
-        });
-    </script>
-</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Simulatore Contenuti Amazon A+ Premium v4.9</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" xintegrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" xintegrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+/* === CSS Invariato rispetto alla 1.0 tranne aggiunte e modifiche per nuovi moduli === */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#f4f4f4;color:#333;display:flex;flex-direction:column;min-height:100vh}
+header{background:#232f3e;color:#fff;padding:1rem;text-align:center}
+.container{display:flex;flex-grow:1;flex-wrap:wrap;padding:1rem;gap:1rem}
+.controls{background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1);flex:1;min-width:300px;max-width:500px;align-self:flex-start}
+.controls h2,.controls h3{color:#e47911;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:2px solid #e47911}
+.module-selection-header{display:flex;justify-content:space-between;align-items:center}
+#selected-modules-count{font-size:.9em;background:#f0f2f2;padding:.2em .6em;border-radius:4px}
+#module-list button{display:block;width:100%;padding:.8rem;margin-bottom:.5rem;background:#f0f2f2;border:1px solid #ddd;border-radius:4px;cursor:pointer;text-align:left;transition:.2s}
+#module-list button:hover{background:#e3e6e6}
+
+/* Stile per evidenziare il modulo selezionato nei controlli */
+@keyframes blinking-border-green {
+    0% { border-color: #39ff14; box-shadow: 0 0 5px #39ff14, inset 0 0 5px rgba(57, 255, 20, 0.3); }
+    50% { border-color: #90ee90; box-shadow: 0 0 10px #90ee90, inset 0 0 10px rgba(144, 238, 144, 0.5); }
+    100% { border-color: #39ff14; box-shadow: 0 0 5px #39ff14, inset 0 0 5px rgba(57, 255, 20, 0.3); }
+}
+.selected-module-input-group {
+    background-color: #f0fff0 !important; /* Verde chiaro per lo sfondo */
+    border: 2px solid #39ff14 !important; /* Verde fluo */
+    animation: blinking-border-green 1.5s infinite;
+}
+
+
+.module-input-group{border:1px solid #ccc;border-radius:5px;padding:1rem;margin-bottom:1rem;background:#fdfdfd}
+.module-input-group h4{margin-bottom:.8rem;color:#555;display:flex;justify-content:space-between;align-items:center}
+.module-input-group label{display:block;margin-bottom:.3rem;font-weight:700;font-size:.9em}
+.module-input-group input[type=text],.module-input-group textarea,.module-input-group select{width:100%;padding:.6rem;margin-bottom:.3rem;border:1px solid #ccc;border-radius:4px;font-size:1em}
+.module-input-group input[type=checkbox]{width:auto;margin-right:5px;}
+.module-input-group textarea{min-height:80px;resize:vertical}
+.char-counter{font-size:.8em;color:#777;text-align:right;margin-bottom:.6rem}
+.char-counter.over-limit{color:#c00;font-weight:700}
+.image-upload-area{margin-top:.5rem;margin-bottom:1rem;border:1px dashed #ccc;padding:.5rem;border-radius:4px}
+.image-preview{max-width:100px;max-height:100px;margin-top:.5rem;border:1px solid #eee;display:block; object-fit: contain;}
+.image-placeholder{width:100px;height:60px;background:#eee;color:#999;font-size:0.8em;display:flex;align-items:center;justify-content:center;text-align:center;padding:5px;border:1px solid #ddd; margin-top: 0.5rem;}
+.remove-module-btn{background:#d9534f;color:#fff;border:none;padding:.3rem .6rem;border-radius:4px;cursor:pointer;font-size:.8em}
+.remove-module-btn:hover{background:#c9302c}
+.preview-area{background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1);flex:2;min-width:320px}
+.preview-area h2{color:#232f3e;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:2px solid #232f3e}
+
+/* Controlli per l'anteprima (Desktop/Mobile) */
+.preview-controls {
+    display: flex;
+    justify-content: flex-end; 
+    margin-bottom: 10px;
+    gap: 10px;
+}
+.preview-controls button {
+    background-color: #f0f2f2;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.preview-controls button:hover:not(:disabled) {
+    background-color: #e3e6e6;
+}
+.preview-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.preview-controls button svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+
+#preview-container{border:1px solid #eee;min-height:400px;padding:10px;background:#fff; overflow-x: auto;}
+.preview-module{margin-bottom:15px;border:1px solid #eee;padding:15px;overflow:hidden;background:#fff;position:relative}
+.preview-module img{max-width:100%;height:auto;display:block;margin:0 auto 10px auto}
+.preview-module .image-placeholder-large { width: 100%; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; border: 1px dashed #ccc; margin-bottom: 10px; font-size: 0.9em;}
+.preview-module .img-container-fixed-size {
+    width: 100%;
+    overflow: hidden;
+    background-color: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+}
+.preview-module .img-container-fixed-size img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+}
+.preview-module .img-container-fixed-size .image-placeholder-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 5px;
+}
+
+/* === Nuovi stili e Modifiche per Anteprime Moduli === */
+.preview-module h3, .preview-module h4, .preview-module h5 { margin-bottom: 0.5em; color: #111; }
+.preview-module p { margin-bottom: 1em; color: #333; }
+.preview-module .sub-headline { font-size: 0.9em; color: #555; font-weight: bold; }
+.preview-module .headline { font-size: 1.5em; font-weight: bold; }
+.preview-module .body-text { font-size: 1em; line-height: 1.5; }
+
+/* Stili specifici per moduli */
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT { position: relative; padding:0; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .bg-image-container { width: 100%; max-height: 600px; overflow: hidden; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .bg-image-container img { width: 100%; height: auto; display: block; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    padding: 20px;
+    max-width: 40%;
+    border-radius: 5px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.align-left { left: 20px; text-align: left; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.align-right { right: 20px; text-align: right; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-white { background-color: rgba(255,255,255,0.8); color: #000; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-white h3,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-white h4,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-white p { color: #000; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-black { background-color: rgba(0,0,0,0.7); color: #fff; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-black h3,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-black h4,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay.bg-black p { color: #fff; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay h3,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay h4,
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay p { margin-bottom: 0.5em; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay h4 { font-size: 1.2em; }
+.preview-PREMIUM_BACKGROUND_IMAGE_TEXT .text-overlay h3 { font-size: 1.5em; }
+
+
+.preview-PREMIUM_DUAL_IMAGES_TEXT .dual-image-layout { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; }
+.preview-PREMIUM_DUAL_IMAGES_TEXT .image-block {
+    flex: 0 1 calc(50% - 7.5px);
+    text-align: center;
+    overflow: hidden;
+}
+.preview-PREMIUM_DUAL_IMAGES_TEXT .image-block .img-container-fixed-size { height: 175px; margin-bottom: 10px;}
+
+.preview-PREMIUM_DUAL_IMAGES_TEXT .image-block h4,
+.preview-PREMIUM_DUAL_IMAGES_TEXT .image-block p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+.preview-PREMIUM_FULL_IMAGE .headline,
+.preview-PREMIUM_FULL_IMAGE .body-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    text-align: center;
+}
+
+.preview-PREMIUM_HOTSPOTS_2 .module-headline,
+.preview-PREMIUM_HOTSPOTS_2 .module-body {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+.preview-PREMIUM_FOUR_IMAGES_TEXT .four-image-layout { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; }
+.preview-PREMIUM_FOUR_IMAGES_TEXT .image-block {
+    flex: 0 1 calc(25% - 11.25px);
+    text-align: center;
+    overflow: hidden;
+}
+.preview-PREMIUM_FOUR_IMAGES_TEXT .image-block .img-container-fixed-size { height: 112px; margin-bottom: 10px; }
+
+.preview-PREMIUM_FOUR_IMAGES_TEXT .image-block h4,
+.preview-PREMIUM_FOUR_IMAGES_TEXT .image-block p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+
+.preview-PREMIUM_FU
